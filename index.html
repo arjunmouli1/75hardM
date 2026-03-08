@@ -3,190 +3,235 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>75 HARD — Malaika's Protocol</title>
+<title>75 HARD — Malaika</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #f7f6f9;
-    --bg2: #ffffff;
-    --bg3: #f0eef5;
-    --border: #e0dcea;
-    --border2: #eae7f2;
-    --accent: #7c3aed;
-    --accent2: #a855f7;
-    --green: #1a7a4a;
-    --blue: #1a6fa8;
-    --teal: #0d8f7a;
-    --amber: #b07800;
-    --red: #c0392b;
-    --muted: #6b6578;
-    --muted2: #8a8398;
-    --text: #1a1728;
-    --text2: #3d3658;
-    --text3: #5a5270;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { background: var(--bg); color: var(--text); font-family: 'Barlow Condensed', sans-serif; min-height: 100vh; }
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-thumb { background: #d4d0e0; border-radius: 2px; }
+:root {
+  --bg: #f7f6f9; --bg2: #fff; --bg3: #f0eef5;
+  --border: #e0dcea; --border2: #eae7f2;
+  --accent: #7c3aed; --accent2: #a855f7;
+  --green: #1a7a4a; --blue: #1a6fa8; --teal: #0d8f7a;
+  --amber: #b07800; --red: #c0392b;
+  --muted: #6b6578; --muted2: #8a8398;
+  --text: #1a1728; --text2: #3d3658; --text3: #5a5270;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--text); font-family: 'Barlow Condensed', sans-serif; min-height: 100vh; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: #d4d0e0; border-radius: 2px; }
+@keyframes fadeup { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+@keyframes glow-pulse { 0%,100% { box-shadow:0 0 16px rgba(124,58,237,.15); } 50% { box-shadow:0 0 28px rgba(124,58,237,.3); } }
+.fade-in { animation: fadeup .3s ease forwards; }
 
-  @keyframes fadeup { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
-  @keyframes glow-pulse { 0%,100%{box-shadow:0 0 16px rgba(124,58,237,.15)} 50%{box-shadow:0 0 28px rgba(124,58,237,.3)} }
-  .fade-in { animation: fadeup .3s ease forwards; }
+/* HEADER */
+#header { background: linear-gradient(160deg,#faf8ff 0%,#fff 100%); border-bottom: 2px solid var(--border); padding: 22px 28px 16px; }
+.header-inner { max-width: 940px; margin: 0 auto; }
+.header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+.badge { font-size: 10px; letter-spacing: 4px; color: var(--accent); font-weight: 700; margin-bottom: 5px; }
+.day-display { font-size: 48px; font-weight: 900; line-height: 1; letter-spacing: -1px; color: var(--text); }
+.day-display .num { color: var(--accent); }
+.day-display .denom { color: #ccc8dc; }
+.subtitle { font-size: 12px; color: var(--muted); margin-top: 6px; letter-spacing: 1px; }
+.started { color: #bbb8cc; margin-left: 14px; }
 
-  #header {
-    background: linear-gradient(160deg, #faf8ff 0%, #fff 100%);
-    border-bottom: 2px solid var(--border);
-    padding: 26px 28px 18px;
-  }
-  .header-inner { max-width: 940px; margin: 0 auto; }
-  .header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; }
-  .badge { font-size: 10px; letter-spacing: 4px; color: var(--accent); font-weight: 700; margin-bottom: 6px; }
-  .day-display { font-size: 52px; font-weight: 900; line-height: 1; letter-spacing: -1px; color: var(--text); }
-  .day-display span.num { color: var(--accent); }
-  .day-display span.denom { color: #ccc8dc; }
-  .subtitle { font-size: 12px; color: var(--muted); margin-top: 8px; letter-spacing: 1px; }
-  .subtitle .started { color: #bbb8cc; margin-left: 14px; }
+/* DAY NAV */
+.day-nav { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+.nav-btn { background: #fff; border: 1px solid var(--border); border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; transition: all .15s; color: var(--text2); flex-shrink: 0; }
+.nav-btn:hover { background: var(--bg3); border-color: var(--muted); }
+.nav-btn:disabled { opacity: .3; cursor: default; }
+.nav-today { font-size: 11px; color: var(--accent); background: none; border: 1px solid var(--accent); border-radius: 5px; padding: 4px 10px; cursor: pointer; font-family: inherit; letter-spacing: 1px; transition: background .2s; }
+.nav-today:hover { background: rgba(124,58,237,.07); }
+.day-select { background: #fff; border: 1px solid var(--border); color: var(--text); font-family: inherit; font-size: 13px; font-weight: 700; padding: 5px 10px; border-radius: 6px; cursor: pointer; }
+.viewing-badge { font-size: 10px; background: #f8f4ff; border: 1px solid #d8c0f8; color: var(--accent); padding: 4px 10px; border-radius: 5px; letter-spacing: 1px; font-weight: 600; }
+.viewing-badge.is-today { background: #f0fff8; border-color: #a0dfc0; color: var(--green); }
 
-  .ring-wrap { position: relative; width: 88px; height: 88px; flex-shrink: 0; }
-  .ring-wrap svg { transform: rotate(-90deg); }
-  .ring-track { fill: none; stroke: #e8e4f2; stroke-width: 5; }
-  .ring-fill { fill: none; stroke: var(--accent); stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset 1.2s ease; }
-  .ring-label { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-  .ring-pct { font-size: 22px; font-weight: 900; color: var(--text); line-height: 1; }
-  .ring-sub { font-size: 9px; color: var(--muted2); letter-spacing: 1px; }
+/* RING */
+.ring-wrap { position: relative; width: 84px; height: 84px; flex-shrink: 0; }
+.ring-wrap svg { transform: rotate(-90deg); }
+.ring-track { fill: none; stroke: #e8e4f2; stroke-width: 5; }
+.ring-fill { fill: none; stroke: var(--accent); stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset 1.2s ease; }
+.ring-label { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.ring-pct { font-size: 20px; font-weight: 900; color: var(--text); line-height: 1; }
+.ring-sub { font-size: 9px; color: var(--muted2); letter-spacing: 1px; }
 
-  .prog-bar-wrap { height: 3px; background: #e8e4f2; border-radius: 2px; margin-bottom: 18px; }
-  .prog-bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 2px; transition: width 1.2s ease; }
+.prog-bar-wrap { height: 3px; background: #e8e4f2; border-radius: 2px; margin-bottom: 16px; }
+.prog-bar { height: 100%; background: linear-gradient(90deg,var(--accent),var(--accent2)); border-radius: 2px; transition: width 1.2s ease; }
 
-  .stat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
-  .stat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
-  .stat-label { font-size: 9px; color: var(--muted2); letter-spacing: 2px; margin-bottom: 5px; }
-  .stat-val { font-size: 14px; font-weight: 800; letter-spacing: .5px; }
+.stat-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 8px; }
+.stat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 9px 10px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.stat-label { font-size: 9px; color: var(--muted2); letter-spacing: 2px; margin-bottom: 4px; }
+.stat-val { font-size: 13px; font-weight: 800; }
 
-  .date-row { margin-top: 14px; display: flex; align-items: center; gap: 10px; }
-  .btn-ghost { font-size: 10px; color: var(--muted2); letter-spacing: 1.5px; background: none; border: 1px solid var(--border); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-family: inherit; transition: all .2s; }
-  .btn-ghost:hover { color: var(--text2); border-color: var(--muted); }
-  .btn-accent { font-size: 11px; color: var(--accent); background: none; border: 1px solid var(--accent); padding: 5px 12px; border-radius: 4px; cursor: pointer; font-family: inherit; letter-spacing: 1px; transition: background .2s; }
-  .btn-accent:hover { background: rgba(124,58,237,.07); }
-  input[type=date] { background: #fff; border: 1px solid var(--border); color: var(--text); font-family: inherit; padding: 5px 10px; border-radius: 4px; font-size: 13px; cursor: pointer; }
+.date-row { margin-top: 12px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.btn-ghost { font-size: 10px; color: var(--muted2); letter-spacing: 1.5px; background: none; border: 1px solid var(--border); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-family: inherit; transition: all .2s; }
+.btn-ghost:hover { color: var(--text2); border-color: var(--muted); }
+.btn-accent { font-size: 11px; color: var(--accent); background: none; border: 1px solid var(--accent); padding: 5px 12px; border-radius: 4px; cursor: pointer; font-family: inherit; letter-spacing: 1px; }
+input[type=date] { background: #fff; border: 1px solid var(--border); color: var(--text); font-family: inherit; padding: 5px 10px; border-radius: 4px; font-size: 13px; cursor: pointer; }
 
-  #rules-strip { background: #fff; border-bottom: 1px solid var(--border); padding: 14px 28px; }
-  .rules-inner { max-width: 940px; margin: 0 auto; }
-  .rules-title { font-size: 9px; color: var(--accent); letter-spacing: 3px; margin-bottom: 10px; font-weight: 700; }
-  .rules-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .rule-card { border: 1px solid var(--border); background: var(--bg); border-radius: 8px; padding: 11px 14px; display: flex; align-items: center; gap: 12px; }
-  .rule-icon { font-size: 18px; flex-shrink: 0; }
-  .rule-name { font-size: 13px; font-weight: 700; color: var(--text); }
-  .rule-sub { font-size: 11px; color: var(--muted); font-family: 'Barlow', sans-serif; }
+/* RULES STRIP */
+#rules-strip { background: #fff; border-bottom: 1px solid var(--border); padding: 12px 28px; }
+.rules-inner { max-width: 940px; margin: 0 auto; }
+.rules-title { font-size: 9px; color: var(--accent); letter-spacing: 3px; margin-bottom: 8px; font-weight: 700; }
+.rules-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; }
+.rule-card { border: 1px solid var(--border); background: var(--bg); border-radius: 7px; padding: 9px 12px; display: flex; align-items: center; gap: 10px; }
+.rule-icon { font-size: 16px; flex-shrink: 0; }
+.rule-name { font-size: 12px; font-weight: 700; color: var(--text); }
+.rule-sub { font-size: 10px; color: var(--muted); font-family: 'Barlow', sans-serif; }
 
-  #main { max-width: 940px; margin: 0 auto; padding: 0 28px 60px; }
-  .tab-bar { display: flex; gap: 20px; border-bottom: 2px solid var(--border2); margin-bottom: 22px; margin-top: 6px; overflow-x: auto; }
-  .tab-btn { background: none; border: none; color: var(--muted2); font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 2px; cursor: pointer; padding: 10px 0; border-bottom: 2px solid transparent; transition: all .2s; margin-bottom: -2px; white-space: nowrap; }
-  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
-  .tab-btn:hover:not(.active) { color: var(--text2); }
-  .tab-pane { display: none; }
-  .tab-pane.active { display: block; }
+/* MAIN / TABS */
+#main { max-width: 940px; margin: 0 auto; padding: 0 28px 60px; }
+.tab-bar { display: flex; gap: 20px; border-bottom: 2px solid var(--border2); margin-bottom: 20px; margin-top: 6px; overflow-x: auto; }
+.tab-btn { background: none; border: none; color: var(--muted2); font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 2px; cursor: pointer; padding: 9px 0; border-bottom: 2px solid transparent; transition: all .2s; margin-bottom: -2px; white-space: nowrap; }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-btn:hover:not(.active) { color: var(--text2); }
+.tab-pane { display: none; }
+.tab-pane.active { display: block; }
+.section-check-title { font-size: 9px; color: var(--accent); letter-spacing: 3px; font-weight: 700; margin-bottom: 10px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--border2); }
 
-  .section-check-title { font-size: 9px; color: var(--accent); letter-spacing: 3px; font-weight: 700; margin-bottom: 12px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border2); }
+/* LOCKED NOTICE */
+.locked-notice { background: #fffbf0; border: 1px solid #f0e0a0; border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; font-size: 12px; font-family: 'Barlow', sans-serif; color: #8a6800; display: flex; align-items: center; gap: 10px; }
 
-  .sched-row { display: grid; grid-template-columns: 72px 165px 1fr; align-items: start; gap: 14px; padding: 11px 14px; border-radius: 8px; margin-bottom: 7px; border: 1px solid; transition: all .15s; }
-  .sched-row:hover { box-shadow: 0 2px 8px rgba(0,0,0,.06); }
-  .sched-time { font-size: 12px; color: var(--muted2); font-family: 'Barlow', sans-serif; padding-top: 1px; }
-  .sched-block-wrap { display: flex; align-items: center; gap: 8px; }
-  .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-  .sched-block { font-size: 13px; font-weight: 700; color: var(--text2); letter-spacing: .5px; }
-  .sched-detail { font-size: 12px; color: var(--text3); font-family: 'Barlow', sans-serif; line-height: 1.55; }
+/* PROGRESS BAR */
+.day-progress-bar { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 11px 15px; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+.day-prog-label { font-size: 10px; color: var(--muted2); letter-spacing: 1.5px; flex-shrink: 0; }
+.day-prog-track { flex: 1; height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+.day-prog-fill { height: 100%; background: linear-gradient(90deg,var(--accent),var(--accent2)); border-radius: 3px; transition: width .4s ease; }
+.day-prog-count { font-size: 12px; font-weight: 700; color: var(--accent); flex-shrink: 0; }
 
-  .macro-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 20px; }
-  .macro-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
-  .macro-label { font-size: 9px; color: var(--muted2); letter-spacing: 2px; margin-bottom: 7px; }
-  .macro-val { font-size: 26px; font-weight: 900; }
-  .meal-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; margin-bottom: 10px; box-shadow: 0 1px 4px rgba(0,0,0,.04); }
-  .meal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-  .meal-title { font-size: 14px; font-weight: 700; }
-  .meal-macros { display: flex; gap: 12px; font-size: 12px; font-family: 'Barlow', sans-serif; }
-  .meal-item { font-size: 12px; color: var(--text3); font-family: 'Barlow', sans-serif; line-height: 1.7; display: flex; gap: 8px; }
-  .meal-dash { color: #c8c4d8; }
+/* CHECKLISTS */
+.check-row { display: flex; align-items: center; gap: 11px; padding: 10px 14px; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 7px; cursor: pointer; transition: all .15s; user-select: none; box-shadow: 0 1px 3px rgba(0,0,0,.03); }
+.check-row:hover:not(.locked) { background: #f5f3fc; box-shadow: 0 2px 6px rgba(0,0,0,.07); }
+.check-row.locked { cursor: default; opacity: .6; }
+.check-row.done { opacity: .5; }
+.check-row.done .check-text, .check-row.done .check-sub { text-decoration: line-through; }
+.check-box { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all .2s; background: #fff; }
+.check-row.done .check-box { background: var(--accent); border-color: var(--accent); }
+.check-row.locked .check-box { background: var(--bg3); }
+.check-tick { color: #fff; font-size: 11px; font-weight: 900; display: none; }
+.check-row.done .check-tick { display: block; }
+.check-text { font-size: 13px; font-weight: 600; color: var(--text2); }
+.check-sub { font-size: 11px; color: var(--muted); font-family: 'Barlow', sans-serif; }
+.reset-btn { width: 100%; margin-top: 8px; padding: 10px; background: #fff; border: 1px solid var(--border); border-radius: 8px; color: var(--muted2); font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 2px; cursor: pointer; transition: all .2s; }
+.reset-btn:hover { background: var(--bg3); color: var(--text2); }
+.complete-banner { background: linear-gradient(135deg,#f8f4ff,#f0e8ff); border: 1px solid #c8a8f8; border-radius: 10px; padding: 22px; text-align: center; margin-bottom: 14px; animation: glow-pulse 3s infinite; }
+.complete-num { font-size: 52px; font-weight: 900; color: var(--accent); line-height: 1; }
+.complete-label { font-size: 12px; color: var(--accent); letter-spacing: 3px; margin-top: 5px; }
 
-  /* MOBILITY — daily, both sections */
-  .mob-section { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; margin-bottom: 14px; }
-  .mob-section-title { font-size: 11px; letter-spacing: 2px; font-weight: 700; margin-bottom: 14px; }
-  .mob-row { background: var(--bg3); border: 1px solid var(--border2); border-radius: 6px; padding: 10px 14px; margin-bottom: 7px; display: flex; justify-content: space-between; align-items: center; }
-  .mob-name { font-size: 13px; font-weight: 600; color: var(--text2); }
-  .mob-sets { font-size: 12px; color: var(--muted); font-family: 'Barlow', sans-serif; }
+/* SCHEDULE */
+.sched-row { display: grid; grid-template-columns: 90px 160px 1fr; align-items: start; gap: 12px; padding: 10px 13px; border-radius: 7px; margin-bottom: 6px; border: 1px solid; transition: box-shadow .15s; }
+.sched-row:hover { box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+.sched-time { font-size: 12px; color: var(--muted2); font-family: 'Barlow', sans-serif; padding-top: 1px; }
+.sched-block-wrap { display: flex; align-items: center; gap: 7px; }
+.dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.sched-block { font-size: 13px; font-weight: 700; color: var(--text2); }
+.sched-detail { font-size: 12px; color: var(--text3); font-family: 'Barlow', sans-serif; line-height: 1.55; }
 
-  /* JOB APPS */
-  .jobs-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-  .jobs-title { font-size: 11px; letter-spacing: 2px; font-weight: 700; color: var(--accent); }
-  .jobs-streak { font-size: 12px; color: var(--muted); font-family: 'Barlow', sans-serif; }
-  .job-input-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; margin-bottom: 16px; }
-  .job-input { background: #fff; border: 1px solid var(--border); color: var(--text); font-family: 'Barlow', sans-serif; padding: 9px 12px; border-radius: 6px; font-size: 13px; width: 100%; transition: border-color .2s; }
-  .job-input:focus { outline: none; border-color: var(--accent); }
-  .btn-add { background: var(--accent); color: #fff; border: none; border-radius: 6px; padding: 9px 18px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 1px; cursor: pointer; transition: background .2s; white-space: nowrap; }
-  .btn-add:hover { background: #6d28d9; }
-  .jobs-today-count { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 16px; }
-  .jobs-count-num { font-size: 36px; font-weight: 900; color: var(--accent); line-height: 1; }
-  .jobs-count-label { font-size: 11px; color: var(--muted); letter-spacing: 1px; }
-  .jobs-count-bar-wrap { flex: 1; height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
-  .jobs-count-bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 3px; transition: width .4s ease; }
-  .app-table { width: 100%; border-collapse: collapse; font-family: 'Barlow', sans-serif; }
-  .app-table th { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 2px; color: var(--muted2); text-align: left; padding: 0 12px 10px; border-bottom: 1px solid var(--border); }
-  .app-table td { font-size: 13px; color: var(--text3); padding: 10px 12px; border-bottom: 1px solid var(--border2); vertical-align: middle; }
-  .app-table tr:last-child td { border-bottom: none; }
-  .app-table tr:hover td { background: var(--bg3); }
-  .status-badge { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; padding: 2px 8px; border-radius: 12px; cursor: pointer; }
-  .status-Applied   { background: #e8f4ff; color: #1a6fa8; border: 1px solid #b0d4f0; }
-  .status-Interview { background: #f0fff8; color: #1a7a4a; border: 1px solid #a0dfc0; }
-  .status-Rejected  { background: #fff4f4; color: #c0392b; border: 1px solid #f0c0c0; }
-  .status-Offer     { background: #f8f0ff; color: #7c3aed; border: 1px solid #d8b8f8; }
-  .del-btn { background: none; border: none; color: #d0ccd8; cursor: pointer; font-size: 16px; transition: color .2s; padding: 2px 6px; }
-  .del-btn:hover { color: var(--red); }
-  .empty-jobs { text-align: center; padding: 32px; color: var(--muted2); font-family: 'Barlow', sans-serif; font-size: 13px; }
-  .total-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 20px; }
-  .total-stat { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; text-align: center; }
-  .total-stat-label { font-size: 9px; color: var(--muted2); letter-spacing: 1.5px; margin-bottom: 5px; }
-  .total-stat-val { font-size: 24px; font-weight: 900; }
+/* NUTRITION */
+.macro-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 18px; }
+.macro-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 11px 13px; text-align: center; }
+.macro-label { font-size: 9px; color: var(--muted2); letter-spacing: 2px; margin-bottom: 6px; }
+.macro-val { font-size: 24px; font-weight: 900; }
+.meal-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 13px 16px; margin-bottom: 9px; }
+.meal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 9px; }
+.meal-title { font-size: 14px; font-weight: 700; }
+.meal-macros { display: flex; gap: 10px; font-size: 12px; font-family: 'Barlow', sans-serif; }
+.meal-item { font-size: 12px; color: var(--text3); font-family: 'Barlow', sans-serif; line-height: 1.7; display: flex; gap: 8px; }
+.meal-dash { color: #c8c4d8; }
 
-  /* CHECKLISTS */
-  .check-row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 7px; cursor: pointer; transition: all .15s; user-select: none; box-shadow: 0 1px 3px rgba(0,0,0,.03); }
-  .check-row:hover { background: #f5f3fc; }
-  .check-row.done { opacity: .55; }
-  .check-row.done .check-text, .check-row.done .check-sub { text-decoration: line-through; }
-  .check-box { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all .2s; background: #fff; }
-  .check-row.done .check-box { background: var(--accent); border-color: var(--accent); }
-  .check-box-tick { color: #fff; font-size: 12px; font-weight: 900; display: none; }
-  .check-row.done .check-box-tick { display: block; }
-  .check-text { font-size: 13px; font-weight: 600; color: var(--text2); }
-  .check-sub { font-size: 11px; color: var(--muted); font-family: 'Barlow', sans-serif; }
-  .reset-btn { width: 100%; margin-top: 10px; padding: 11px; background: #fff; border: 1px solid var(--border); border-radius: 8px; color: var(--muted2); font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 2px; cursor: pointer; transition: all .2s; }
-  .reset-btn:hover { background: var(--bg3); color: var(--text2); }
-  .complete-banner { background: linear-gradient(135deg, #f8f4ff, #f0e8ff); border: 1px solid #c8a8f8; border-radius: 10px; padding: 24px; text-align: center; margin-bottom: 16px; animation: glow-pulse 3s infinite; }
-  .complete-num { font-size: 56px; font-weight: 900; color: var(--accent); line-height: 1; }
-  .complete-label { font-size: 12px; color: var(--accent); letter-spacing: 3px; margin-top: 6px; }
-  .day-progress-bar { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 14px; }
-  .day-prog-label { font-size: 10px; color: var(--muted2); letter-spacing: 1.5px; flex-shrink: 0; }
-  .day-prog-track { flex: 1; height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
-  .day-prog-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 3px; transition: width .4s ease; }
-  .day-prog-count { font-size: 12px; font-weight: 700; color: var(--accent); flex-shrink: 0; }
+/* MOBILITY */
+.mob-section { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 15px 17px; margin-bottom: 12px; }
+.mob-section-title { font-size: 11px; letter-spacing: 2px; font-weight: 700; margin-bottom: 12px; }
+.mob-row { background: var(--bg3); border: 1px solid var(--border2); border-radius: 6px; padding: 9px 13px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
+.mob-name { font-size: 13px; font-weight: 600; color: var(--text2); }
+.mob-sets { font-size: 12px; color: var(--muted); font-family: 'Barlow', sans-serif; }
 
-  @media (max-width: 640px) {
-    .stat-grid { grid-template-columns: repeat(3,1fr); }
-    .rules-grid { grid-template-columns: 1fr 1fr; }
-    .macro-grid { grid-template-columns: repeat(2,1fr); }
-    .sched-row { grid-template-columns: 60px 1fr; }
-    .job-input-row { grid-template-columns: 1fr; }
-    .total-stats { grid-template-columns: repeat(2,1fr); }
-  }
+/* JOB APPS */
+.total-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 18px; }
+.total-stat { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 13px; text-align: center; }
+.total-stat-label { font-size: 9px; color: var(--muted2); letter-spacing: 1.5px; margin-bottom: 5px; }
+.total-stat-val { font-size: 24px; font-weight: 900; }
+.jobs-today-count { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 11px 15px; margin-bottom: 14px; display: flex; align-items: center; gap: 14px; }
+.jobs-count-num { font-size: 34px; font-weight: 900; color: var(--accent); line-height: 1; }
+.jobs-count-label { font-size: 11px; color: var(--muted); letter-spacing: 1px; }
+.jobs-count-bar-wrap { flex: 1; height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+.jobs-count-bar { height: 100%; background: linear-gradient(90deg,var(--accent),var(--accent2)); border-radius: 3px; transition: width .4s ease; }
+.job-input-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; margin-bottom: 14px; }
+.job-input { background: #fff; border: 1px solid var(--border); color: var(--text); font-family: 'Barlow', sans-serif; padding: 9px 12px; border-radius: 6px; font-size: 13px; width: 100%; }
+.job-input:focus { outline: none; border-color: var(--accent); }
+.btn-add { background: var(--accent); color: #fff; border: none; border-radius: 6px; padding: 9px 16px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 1px; cursor: pointer; white-space: nowrap; }
+.btn-add:hover { background: #6d28d9; }
+.jobs-table-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.app-table { width: 100%; border-collapse: collapse; font-family: 'Barlow', sans-serif; }
+.app-table th { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 2px; color: var(--muted2); text-align: left; padding: 0 12px 10px; border-bottom: 1px solid var(--border); }
+.app-table td { font-size: 13px; color: var(--text3); padding: 10px 12px; border-bottom: 1px solid var(--border2); vertical-align: middle; }
+.app-table tr:last-child td { border-bottom: none; }
+.app-table tr:hover td { background: var(--bg3); }
+.status-Applied  { background: #e8f4ff; color: #1a6fa8; border: 1px solid #b0d4f0; }
+.status-Interview{ background: #f0fff8; color: #1a7a4a; border: 1px solid #a0dfc0; }
+.status-Rejected { background: #fff4f4; color: #c0392b; border: 1px solid #f0c0c0; }
+.status-Offer    { background: #f8f0ff; color: #7c3aed; border: 1px solid #d8b8f8; }
+.status-badge { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; padding: 2px 8px; border-radius: 12px; cursor: pointer; }
+.del-btn { background: none; border: none; color: #ccc; cursor: pointer; font-size: 18px; padding: 2px 6px; line-height: 1; }
+.del-btn:hover { color: var(--red); }
+.empty-jobs { text-align: center; padding: 32px; color: var(--muted2); font-family: 'Barlow', sans-serif; font-size: 13px; }
+
+/* METRICS */
+.metrics-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 20px; }
+.met-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 13px 15px; text-align: center; }
+.met-label { font-size: 9px; color: var(--muted2); letter-spacing: 2px; margin-bottom: 7px; }
+.met-val { font-size: 28px; font-weight: 900; line-height: 1; }
+.met-sub { font-size: 11px; color: var(--muted); font-family: 'Barlow', sans-serif; margin-top: 4px; }
+.streak-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+.streak-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+.streak-val { font-size: 28px; font-weight: 900; color: var(--accent); line-height: 1; }
+.streak-label { font-size: 10px; color: var(--muted2); letter-spacing: 1.5px; margin-top: 4px; }
+.cat-section { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 15px 17px; margin-bottom: 11px; }
+.cat-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 11px; }
+.cat-title { font-size: 13px; font-weight: 700; }
+.cat-pct { font-size: 20px; font-weight: 900; }
+.cat-bar-wrap { height: 8px; background: var(--bg3); border-radius: 4px; margin-bottom: 9px; overflow: hidden; }
+.cat-bar { height: 100%; border-radius: 4px; transition: width .8s ease; }
+.item-row { display: flex; align-items: center; gap: 10px; margin-bottom: 7px; }
+.item-name { font-size: 12px; color: var(--text3); font-family: 'Barlow', sans-serif; flex: 1; }
+.item-bar-wrap { width: 120px; height: 5px; background: var(--bg3); border-radius: 3px; overflow: hidden; flex-shrink: 0; }
+.item-bar { height: 100%; border-radius: 3px; }
+.item-pct { font-size: 11px; font-weight: 700; min-width: 32px; text-align: right; flex-shrink: 0; }
+.cat-items { display: grid; grid-template-columns: repeat(75,1fr); gap: 2px; margin-top: 10px; }
+.day-dot { width: 100%; padding-bottom: 100%; border-radius: 2px; cursor: pointer; transition: transform .1s; }
+.day-dot:hover { transform: scale(1.3); }
+.day-dot.empty   { background: var(--bg3); }
+.day-dot.full    { background: var(--green); }
+.day-dot.partial { background: var(--amber); }
+.day-dot.future  { background: var(--border); }
+.day-dot.today-ring { outline: 2px solid var(--accent); outline-offset: 1px; }
+.heatmap-legend { display: flex; align-items: center; gap: 12px; margin-top: 7px; font-size: 11px; color: var(--muted); font-family: 'Barlow', sans-serif; }
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+.jobs-mini-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 12px; }
+.jobs-mini-stat { background: var(--bg3); border-radius: 6px; padding: 10px; text-align: center; }
+.jobs-mini-label { font-size: 9px; color: var(--muted2); letter-spacing: 1.5px; margin-bottom: 5px; }
+.jobs-mini-val { font-size: 22px; font-weight: 900; }
+
+@media (max-width: 640px) {
+  .stat-grid { grid-template-columns: repeat(3,1fr); }
+  .rules-grid { grid-template-columns: 1fr 1fr; }
+  .macro-grid { grid-template-columns: repeat(2,1fr); }
+  .sched-row { grid-template-columns: 70px 1fr; }
+  .metrics-grid { grid-template-columns: repeat(2,1fr); }
+  .streak-row { grid-template-columns: 1fr 1fr; }
+  .cat-items { grid-template-columns: repeat(25,1fr); }
+  .job-input-row { grid-template-columns: 1fr; }
+  .total-stats { grid-template-columns: repeat(2,1fr); }
+}
 </style>
 </head>
 <body>
 
+<!-- ===== HEADER ===== -->
 <div id="header">
   <div class="header-inner">
     <div class="header-top">
       <div>
-        <div class="badge">◆ 75 HARD — MALAIKA'S PROTOCOL</div>
+        <div class="badge">&#9670; 75 HARD &mdash; MALAIKA</div>
         <div class="day-display">DAY <span class="num" id="dayNum">1</span><span class="denom"> / 75</span></div>
         <div class="subtitle">
           <span id="daysLeft">74 DAYS REMAINING</span>
@@ -194,9 +239,10 @@
         </div>
       </div>
       <div class="ring-wrap">
-        <svg width="88" height="88" viewBox="0 0 88 88">
-          <circle class="ring-track" cx="44" cy="44" r="37"/>
-          <circle class="ring-fill" id="ringFill" cx="44" cy="44" r="37" stroke-dasharray="232.48" stroke-dashoffset="232.48"/>
+        <svg width="84" height="84" viewBox="0 0 84 84">
+          <circle class="ring-track" cx="42" cy="42" r="36"/>
+          <circle class="ring-fill" id="ringFill" cx="42" cy="42" r="36"
+            stroke-dasharray="226.19" stroke-dashoffset="226.19"/>
         </svg>
         <div class="ring-label">
           <div class="ring-pct" id="ringPct">0%</div>
@@ -204,39 +250,53 @@
         </div>
       </div>
     </div>
-    <div class="prog-bar-wrap"><div class="prog-bar" id="progBar" style="width:0%"></div></div>
-    <div class="stat-grid">
-      <div class="stat-card"><div class="stat-label">WORKOUT</div><div class="stat-val" style="color:#7c3aed">45 MIN</div></div>
-      <div class="stat-card"><div class="stat-label">WALK</div><div class="stat-val" style="color:#0d8f7a">45 MIN</div></div>
-      <div class="stat-card"><div class="stat-label">CALORIES</div><div class="stat-val" style="color:#b07800">≥1,500</div></div>
-      <div class="stat-card"><div class="stat-label">JOB APPS</div><div class="stat-val" style="color:#7c3aed" id="statApps">0 / 3</div></div>
-      <div class="stat-card"><div class="stat-label">MOBILITY</div><div class="stat-val" style="color:#1a7a4a">DAILY</div></div>
+
+    <!-- DAY NAV -->
+    <div class="day-nav">
+      <button class="nav-btn" id="navPrev" onclick="navigateDay(-1)">&#8592;</button>
+      <select class="day-select" id="dayJump" onchange="jumpToDay(parseInt(this.value))"></select>
+      <button class="nav-btn" id="navNext" onclick="navigateDay(1)">&#8594;</button>
+      <button class="nav-today" onclick="goToToday()">TODAY</button>
+      <span class="viewing-badge is-today" id="viewingBadge">TODAY</span>
     </div>
+
+    <div class="prog-bar-wrap"><div class="prog-bar" id="progBar" style="width:0%"></div></div>
+
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-label">WORKOUT</div><div class="stat-val" style="color:var(--accent)">45 MIN</div></div>
+      <div class="stat-card"><div class="stat-label">WALK</div><div class="stat-val" style="color:var(--teal)">45 MIN</div></div>
+      <div class="stat-card"><div class="stat-label">CALORIES</div><div class="stat-val" style="color:var(--amber)">1,500+</div></div>
+      <div class="stat-card"><div class="stat-label">JOB APPS</div><div class="stat-val" style="color:var(--accent)" id="statApps">0 / 3</div></div>
+      <div class="stat-card"><div class="stat-label">MOBILITY</div><div class="stat-val" style="color:var(--green)">DAILY</div></div>
+    </div>
+
     <div class="date-row">
-      <button class="btn-ghost" id="setDateBtn" onclick="showDateEdit()">✎ SET START DATE</button>
-      <span id="dateEditArea" style="display:none">
+      <button class="btn-ghost" id="setDateBtn" onclick="showDateEdit()">&#9998; SET START DATE</button>
+      <span id="dateEditArea" style="display:none; align-items:center; gap:8px;">
         <input type="date" id="dateInput">
-        <button class="btn-accent" onclick="saveStartDate()" style="margin-left:8px">SAVE</button>
-        <button class="btn-ghost" onclick="hideDateEdit()" style="margin-left:6px">CANCEL</button>
+        <button class="btn-accent" onclick="saveStartDate()">SAVE</button>
+        <button class="btn-ghost" onclick="hideDateEdit()">CANCEL</button>
       </span>
     </div>
   </div>
 </div>
 
+<!-- ===== RULES STRIP ===== -->
 <div id="rules-strip">
   <div class="rules-inner">
-    <div class="rules-title">75 HARD DAILY RULES — MISS ONE = RESTART DAY 1</div>
+    <div class="rules-title">75 HARD DAILY RULES &mdash; MISS ONE = RESTART DAY 1</div>
     <div class="rules-grid">
-      <div class="rule-card"><span class="rule-icon">💪</span><div><div class="rule-name">45 min workout</div><div class="rule-sub">Any modality — gym, home, class</div></div></div>
-      <div class="rule-card"><span class="rule-icon">🚶</span><div><div class="rule-name">45 min walk</div><div class="rule-sub">Separate from workout</div></div></div>
-      <div class="rule-card"><span class="rule-icon">📖</span><div><div class="rule-name">Read 10 pages</div><div class="rule-sub">Non-fiction / self-development</div></div></div>
-      <div class="rule-card"><span class="rule-icon">💧</span><div><div class="rule-name">1 gallon of water</div><div class="rule-sub">No exceptions</div></div></div>
-      <div class="rule-card"><span class="rule-icon">🍽️</span><div><div class="rule-name">1,500+ calories</div><div class="rule-sub">Minimum — no alcohol, no cheat meals</div></div></div>
-      <div class="rule-card"><span class="rule-icon">💼</span><div><div class="rule-name">3 job applications</div><div class="rule-sub">Track on spreadsheet daily</div></div></div>
+      <div class="rule-card"><span class="rule-icon">&#128170;</span><div><div class="rule-name">45 min workout</div><div class="rule-sub">Any modality &mdash; gym, home, class</div></div></div>
+      <div class="rule-card"><span class="rule-icon">&#128694;</span><div><div class="rule-name">45 min walk</div><div class="rule-sub">Separate from workout</div></div></div>
+      <div class="rule-card"><span class="rule-icon">&#128218;</span><div><div class="rule-name">Read 10 pages</div><div class="rule-sub">Non-fiction / self-development</div></div></div>
+      <div class="rule-card"><span class="rule-icon">&#128167;</span><div><div class="rule-name">1 gallon of water</div><div class="rule-sub">No exceptions</div></div></div>
+      <div class="rule-card"><span class="rule-icon">&#127859;</span><div><div class="rule-name">1,500+ calories</div><div class="rule-sub">Minimum &mdash; no alcohol, no cheat meals</div></div></div>
+      <div class="rule-card"><span class="rule-icon">&#128188;</span><div><div class="rule-name">3 job applications</div><div class="rule-sub">Log every single day</div></div></div>
     </div>
   </div>
 </div>
 
+<!-- ===== MAIN ===== -->
 <div id="main">
   <div class="tab-bar">
     <button class="tab-btn active" onclick="switchTab('checklist',this)">TODAY</button>
@@ -244,22 +304,25 @@
     <button class="tab-btn" onclick="switchTab('schedule',this)">SCHEDULE</button>
     <button class="tab-btn" onclick="switchTab('nutrition',this)">NUTRITION</button>
     <button class="tab-btn" onclick="switchTab('mobility',this)">MOBILITY</button>
+    <button class="tab-btn" onclick="switchTab('metrics',this)">METRICS</button>
   </div>
 
   <!-- TODAY TAB -->
   <div class="tab-pane active fade-in" id="tab-checklist">
-    <div id="completeBanner" style="display:none" class="complete-banner">
+    <div id="completeBanner" class="complete-banner" style="display:none">
       <div class="complete-num">75</div>
-      <div class="complete-label">🔥 PROGRAM COMPLETE — YOU ARE DIFFERENT NOW</div>
+      <div class="complete-label">&#128293; PROGRAM COMPLETE &mdash; YOU ARE DIFFERENT NOW</div>
+    </div>
+    <div id="viewingNotice" class="locked-notice" style="display:none">
+      &#128197; <span id="viewingNoticeText">Viewing past day</span> &mdash; read-only. Hit TODAY to make changes.
     </div>
     <div class="day-progress-bar">
-      <div class="day-prog-label">TODAY'S PROGRESS</div>
+      <div class="day-prog-label">DAY <span id="checkDayNum">1</span> PROGRESS</div>
       <div class="day-prog-track"><div class="day-prog-fill" id="todayProgFill" style="width:0%"></div></div>
       <div class="day-prog-count" id="todayProgCount">0 / 0</div>
     </div>
-    <div style="font-size:9px;color:var(--accent);letter-spacing:3px;font-weight:700;margin-bottom:10px">DAY <span id="checkDayNum">1</span> CHECKLIST</div>
     <div id="checklistItems"></div>
-    <button class="reset-btn" onclick="resetChecklist('today')">⟳ RESET TODAY</button>
+    <button class="reset-btn" id="resetTodayBtn" onclick="resetSection('today')">&#8635; RESET THIS DAY</button>
   </div>
 
   <!-- JOB APPS TAB -->
@@ -273,389 +336,700 @@
     <div class="jobs-today-count">
       <div>
         <div class="jobs-count-num" id="jobsTodayBig">0</div>
-        <div class="jobs-count-label">APPS TODAY · TARGET: 3</div>
+        <div class="jobs-count-label">APPS TODAY &bull; TARGET: 3</div>
       </div>
       <div class="jobs-count-bar-wrap">
         <div class="jobs-count-bar" id="jobsTodayBar" style="width:0%"></div>
       </div>
     </div>
     <div class="job-input-row">
-      <input class="job-input" id="jobCompany" placeholder="Company name" type="text">
-      <input class="job-input" id="jobRole" placeholder="Role / position" type="text">
+      <input class="job-input" id="jobCompany" type="text" placeholder="Company name"
+        onkeydown="if(event.key==='Enter')addJob()">
+      <input class="job-input" id="jobRole" type="text" placeholder="Role / position"
+        onkeydown="if(event.key==='Enter')addJob()">
       <button class="btn-add" onclick="addJob()">+ ADD</button>
     </div>
-    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden">
+    <div class="jobs-table-wrap">
       <table class="app-table">
         <thead>
           <tr>
-            <th>DATE</th>
-            <th>COMPANY</th>
-            <th>ROLE</th>
-            <th>STATUS</th>
-            <th></th>
+            <th>DATE</th><th>COMPANY</th><th>ROLE</th><th>STATUS</th><th></th>
           </tr>
         </thead>
         <tbody id="jobsTableBody">
-          <tr><td colspan="5" class="empty-jobs">No applications logged yet. Add your first one above.</td></tr>
+          <tr><td colspan="5" class="empty-jobs">No applications yet &mdash; add your first above.</td></tr>
         </tbody>
       </table>
     </div>
-    <div style="margin-top:12px;font-size:11px;color:var(--muted2);font-family:'Barlow',sans-serif">
-      Tap the status badge to cycle through: Applied → Interview → Offer → Rejected
-    </div>
+    <p style="margin-top:10px;font-size:11px;color:var(--muted2);font-family:'Barlow',sans-serif;">
+      Tap a status badge to cycle: Applied &rarr; Interview &rarr; Offer &rarr; Rejected
+    </p>
   </div>
 
   <!-- SCHEDULE TAB -->
   <div class="tab-pane" id="tab-schedule">
     <div id="scheduleContent"></div>
-    <div class="section-check-title">SCHEDULE CHECKLIST — DAY <span class="checkDayDisplay"></span></div>
+    <div class="section-check-title">SCHEDULE CHECKLIST &mdash; DAY <span class="daySpan">1</span></div>
     <div id="scheduleChecklist"></div>
-    <button class="reset-btn" onclick="resetChecklist('schedule')">⟳ RESET</button>
+    <button class="reset-btn" onclick="resetSection('schedule')">&#8635; RESET</button>
   </div>
 
   <!-- NUTRITION TAB -->
   <div class="tab-pane" id="tab-nutrition">
     <div class="macro-grid">
-      <div class="macro-card"><div class="macro-label">CALORIES</div><div class="macro-val" style="color:#b07800">≥1,500</div></div>
-      <div class="macro-card"><div class="macro-label">PROTEIN</div><div class="macro-val" style="color:#1a7a4a">100g+</div></div>
-      <div class="macro-card"><div class="macro-label">MEALS</div><div class="macro-val" style="color:#7c3aed">2–3</div></div>
-      <div class="macro-card"><div class="macro-label">FAST</div><div class="macro-val" style="color:#0d8f7a">NO RULES</div></div>
+      <div class="macro-card"><div class="macro-label">CALORIES</div><div class="macro-val" style="color:var(--amber)">1,500+</div></div>
+      <div class="macro-card"><div class="macro-label">PROTEIN</div><div class="macro-val" style="color:var(--green)">100g+</div></div>
+      <div class="macro-card"><div class="macro-label">MEALS</div><div class="macro-val" style="color:var(--accent)">2&ndash;3</div></div>
+      <div class="macro-card"><div class="macro-label">APPROACH</div><div class="macro-val" style="color:var(--teal);font-size:18px">FLEXIBLE</div></div>
     </div>
     <div id="mealCards"></div>
-    <div class="section-check-title">NUTRITION CHECKLIST — DAY <span class="checkDayDisplay"></span></div>
+    <div class="section-check-title">NUTRITION CHECKLIST &mdash; DAY <span class="daySpan">1</span></div>
     <div id="nutritionChecklist"></div>
-    <button class="reset-btn" onclick="resetChecklist('nutrition')">⟳ RESET</button>
+    <button class="reset-btn" onclick="resetSection('nutrition')">&#8635; RESET</button>
   </div>
 
   <!-- MOBILITY TAB -->
   <div class="tab-pane" id="tab-mobility">
-    <div style="font-size:11px;color:var(--muted);font-family:'Barlow',sans-serif;margin-bottom:18px;line-height:1.6">
-      Complete the full routine every day — both core and hip/lower body sections. Takes ~20 minutes. Do it after your workout while your body is warm.
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:12px;color:var(--muted);font-family:'Barlow',sans-serif;line-height:1.6;">
+      Complete both sections every single day (~20 min). Do after your workout while your body is warm.
     </div>
     <div class="mob-section">
-      <div class="mob-section-title" style="color:#b07800">◆ CORE — DAILY</div>
+      <div class="mob-section-title" style="color:var(--amber)">&#9670; CORE &mdash; DAILY</div>
       <div id="coreRows"></div>
     </div>
     <div class="mob-section">
-      <div class="mob-section-title" style="color:#7c4daa">◆ HIP / LOWER BODY — DAILY</div>
+      <div class="mob-section-title" style="color:#7c4daa">&#9670; HIP / LOWER BODY &mdash; DAILY</div>
       <div id="hipRows"></div>
     </div>
-    <div class="section-check-title">MOBILITY CHECKLIST — DAY <span class="checkDayDisplay"></span></div>
+    <div class="section-check-title">MOBILITY CHECKLIST &mdash; DAY <span class="daySpan">1</span></div>
     <div id="mobilityChecklist"></div>
-    <button class="reset-btn" onclick="resetChecklist('mobility')">⟳ RESET</button>
+    <button class="reset-btn" onclick="resetSection('mobility')">&#8635; RESET</button>
+  </div>
+
+  <!-- METRICS TAB -->
+  <div class="tab-pane" id="tab-metrics">
+    <div id="metricsContent">
+      <p style="color:var(--muted2);font-family:'Barlow',sans-serif;font-size:13px;padding:20px 0;">Loading metrics&hellip;</p>
+    </div>
   </div>
 </div>
 
 <script>
-const STORAGE_KEY = 'malaika_75hard_start';
-const CHECK_KEY   = 'malaika_75hard_checks';
-const JOBS_KEY    = 'malaika_75hard_jobs';
+// ===================== CONSTANTS =====================
+var SK  = 'mal_start_v3';
+var CK  = 'mal_checks_v3';
+var JK  = 'mal_jobs_v3';
 
-const SCHEDULE = [
-  {time:'Morning', block:'WAKE + HYDRATE', detail:'Start with 16oz water. Eat breakfast when hungry — no fasting requirement.', tag:'routine'},
-  {time:'Morning', block:'WORKOUT — 45 MIN', detail:'Any modality: gym, home workout, fitness class, or YouTube. Full 45 minutes.', tag:'train'},
-  {time:'Morning', block:'WALK — 45 MIN', detail:'Separate from workout. Outside preferred but not required. Podcast or audiobook counts toward 10 pages if non-fiction.', tag:'walk'},
-  {time:'Midday', block:'MEAL 1', detail:'Balanced meal — protein + vegetables + healthy fats. Minimum 500 calories.', tag:'eat'},
-  {time:'Afternoon', block:'READ — 10 PAGES', detail:'75 Hard requirement. Non-fiction / self-development. Can split across the day.', tag:'hard75'},
-  {time:'Afternoon', block:'JOB APPLICATIONS — 3', detail:'Log each application in the Job Apps tab. Company + role + status tracked per day.', tag:'jobs'},
-  {time:'Evening', block:'MEAL 2', detail:'Dinner. Protein-focused. Bring daily total to 1,500+ calories.', tag:'eat'},
-  {time:'Evening', block:'MOBILITY — 20 MIN', detail:'Full routine — Core + Hip/Lower Body. Do after workout while body is warm, or post-dinner.', tag:'train'},
-  {time:'Evening', block:'WIND-DOWN', detail:'Limit screens 30 min before bed. Reflect on the day. Log tomorrow\'s job app targets.', tag:'rest'},
+var SCHEDULE = [
+  {time:'Morning',   block:'WAKE + HYDRATE',        detail:'Start with 16oz water. Eat breakfast when hungry.',                                                tag:'routine'},
+  {time:'Morning',   block:'WORKOUT — 45 MIN',      detail:'Any modality: gym, home workout, fitness class. Full 45 minutes.',                                tag:'train'},
+  {time:'Morning',   block:'WALK — 45 MIN',         detail:'Separate from workout. Outside preferred. Audiobook counts toward 10 pages if non-fiction.',      tag:'walk'},
+  {time:'Midday',    block:'MEAL 1',                detail:'Balanced meal — protein + veg + healthy fats. Minimum 500 calories.',                             tag:'eat'},
+  {time:'Afternoon', block:'READ — 10 PAGES',       detail:'75 Hard requirement. Non-fiction / self-development. Can split across the day.',                  tag:'hard75'},
+  {time:'Afternoon', block:'JOB APPLICATIONS — 3',  detail:'Log each one in the Job Apps tab. Company + role + status tracked per day.',                      tag:'jobs'},
+  {time:'Evening',   block:'MEAL 2 / DINNER',       detail:'Protein-focused. Bring daily total to 1,500+ calories.',                                          tag:'eat'},
+  {time:'Evening',   block:'MOBILITY — 20 MIN',     detail:'Both Core and Hip sections every day. Do after workout or post-dinner.',                          tag:'train'},
+  {time:'Evening',   block:'WIND-DOWN',             detail:'Limit screens 30 min before bed. Reflect on the day. Log tomorrow\'s targets.',                   tag:'rest'},
 ];
 
-const TAG = {
-  routine:{dot:'#6b6578', bg:'#f7f6f9', border:'#e0dcea'},
-  train:  {dot:'#1a7a4a', bg:'#f0fff8', border:'#b0e8cc'},
-  walk:   {dot:'#0d8f7a', bg:'#f0fffe', border:'#a0ddd8'},
-  eat:    {dot:'#c0392b', bg:'#fff5f4', border:'#f0c8c4'},
-  hard75: {dot:'#7c3aed', bg:'#faf5ff', border:'#d8c0f8'},
-  jobs:   {dot:'#b07800', bg:'#fffbf0', border:'#f0e0a0'},
-  rest:   {dot:'#7c4daa', bg:'#f8f4ff', border:'#d8c8f0'},
+var STAG = {
+  routine:{dot:'#6b6578',bg:'#f7f6f9',border:'#e0dcea'},
+  train:  {dot:'#1a7a4a',bg:'#f0fff8',border:'#b0e8cc'},
+  walk:   {dot:'#0d8f7a',bg:'#f0fffe',border:'#a0ddd8'},
+  eat:    {dot:'#c0392b',bg:'#fff5f4',border:'#f0c8c4'},
+  hard75: {dot:'#7c3aed',bg:'#faf5ff',border:'#d8c0f8'},
+  jobs:   {dot:'#b07800',bg:'#fffbf0',border:'#f0e0a0'},
+  rest:   {dot:'#7c4daa',bg:'#f8f4ff',border:'#d8c8f0'},
 };
 
-const MEALS = [
-  {label:'MEAL 1 — Morning / Midday', cal:'500–700 cal', protein:'35–45g',
-   items:['Greek yogurt parfait: 1 cup full-fat Greek yogurt + granola + berries','Or: 2 eggs + avocado toast + side fruit','Or: Protein smoothie with banana, peanut butter, protein powder, oat milk','Prioritize protein and slow carbs for sustained energy']},
-  {label:'MEAL 2 — Afternoon (optional)', cal:'300–400 cal', protein:'20–30g',
-   items:['Light snack if hungry: hummus + veggies + pita','Or: Cottage cheese + fruit','Or: Handful of nuts + apple','Skip if not hungry — focus on hitting 1,500 at dinner']},
-  {label:'MEAL 3 — Dinner', cal:'600–800 cal', protein:'40–50g',
-   items:['Lean protein: chicken, salmon, tofu, or shrimp (6–8oz)','Roasted vegetables — any you enjoy','Rice, quinoa, or sweet potato (1 cup) for energy','Light sauce or olive oil — avoid heavy cream sauces']},
+var MEALS = [
+  { label:'MEAL 1 — Morning / Midday', cal:'500–700 cal', protein:'35–45g',
+    items:['Greek yogurt parfait: 1 cup full-fat Greek yogurt + granola + berries',
+           'Or: 2 eggs + avocado toast + side fruit',
+           'Or: Protein smoothie — banana, peanut butter, protein powder, oat milk',
+           'Prioritize protein + slow carbs for sustained energy'] },
+  { label:'MEAL 2 — Afternoon (optional)', cal:'300–400 cal', protein:'20–30g',
+    items:['Hummus + veggies + pita',
+           'Or: Cottage cheese + fruit',
+           'Or: Handful of nuts + apple',
+           'Skip if not hungry — focus on hitting 1,500 at dinner'] },
+  { label:'MEAL 3 — Dinner', cal:'600–800 cal', protein:'40–50g',
+    items:['Lean protein: chicken, salmon, tofu, or shrimp (6–8oz)',
+           'Roasted vegetables — any you enjoy',
+           'Rice, quinoa, or sweet potato (1 cup)',
+           'Light sauce or olive oil — avoid heavy cream sauces'] },
 ];
 
-const CORE = [
-  {name:'Dead Bug', sets:'3×10 / side'},
+var CORE = [
+  {name:'Dead Bug',         sets:'3×10 / side'},
   {name:'Hollow Body Hold', sets:'3×20 sec'},
-  {name:'Glute Bridge', sets:'3×15'},
-  {name:'Bird Dog', sets:'3×10 / side'},
-  {name:'Plank', sets:'3×25 sec'},
+  {name:'Glute Bridge',     sets:'3×15'},
+  {name:'Bird Dog',         sets:'3×10 / side'},
+  {name:'Plank',            sets:'3×25 sec'},
 ];
-const HIP = [
+var HIP = [
   {name:'90/90 Hip Switches', sets:'90 sec continuous'},
-  {name:'Pigeon Pose', sets:'60 sec / side'},
-  {name:'Couch Stretch', sets:'60 sec / side'},
-  {name:'Deep Squat Hold', sets:'90 sec'},
-  {name:'Hip Flexor Lunge', sets:'45 sec / side'},
-  {name:'Butterfly Stretch', sets:'90 sec'},
+  {name:'Pigeon Pose',        sets:'60 sec / side'},
+  {name:'Couch Stretch',      sets:'60 sec / side'},
+  {name:'Deep Squat Hold',    sets:'90 sec'},
+  {name:'Hip Flexor Lunge',   sets:'45 sec / side'},
+  {name:'Butterfly Stretch',  sets:'90 sec'},
 ];
 
-const CHECKS = {
+// Checklist items keyed by section. cat = metrics category for TODAY items.
+var CL = {
   today: [
-    {id:'t_workout', icon:'💪', label:'45 min workout complete', sub:'Any modality — gym, home, class'},
-    {id:'t_walk',    icon:'🚶', label:'45 min walk complete', sub:'Separate from workout'},
-    {id:'t_mob',     icon:'🧘', label:'Mobility routine complete', sub:'Core + Hip — full daily routine'},
-    {id:'t_read',    icon:'📖', label:'Read 10 pages', sub:'Non-fiction / self-development'},
-    {id:'t_water',   icon:'💧', label:'1 gallon of water', sub:'Track throughout the day'},
-    {id:'t_meal',    icon:'🍽️', label:'1,500+ calories eaten', sub:'Minimum — nourishment, not restriction'},
-    {id:'t_jobs',    icon:'💼', label:'3 job applications logged', sub:'Added to tracker in Job Apps tab'},
-    {id:'t_diet',    icon:'🚫', label:'Zero alcohol / cheat meals', sub:'No exceptions'},
+    {id:'t1', icon:'💪', label:'45 min workout complete',       sub:'Any modality',                            cat:'exercise'},
+    {id:'t2', icon:'🚶', label:'45 min walk complete',          sub:'Separate from workout',                   cat:'exercise'},
+    {id:'t3', icon:'🧘', label:'Mobility routine complete',     sub:'Core + Hip — full daily routine',         cat:'exercise'},
+    {id:'t4', icon:'📖', label:'Read 10 pages',                 sub:'Non-fiction / self-development',          cat:'other'},
+    {id:'t5', icon:'💧', label:'1 gallon of water',             sub:'Track throughout the day',                cat:'nutrition'},
+    {id:'t6', icon:'🍽️', label:'1,500+ calories eaten',        sub:'Minimum — nourishment, not restriction',  cat:'nutrition'},
+    {id:'t7', icon:'💼', label:'3 job applications logged',     sub:'Added to tracker in Job Apps tab',        cat:'other'},
+    {id:'t8', icon:'🚫', label:'Zero alcohol / cheat meals',    sub:'No exceptions',                           cat:'nutrition'},
   ],
   schedule: [
-    {id:'s_water',   icon:'💧', label:'Morning water (16oz)', sub:'First thing on wake'},
-    {id:'s_workout', icon:'💪', label:'45 min workout', sub:'Any modality'},
-    {id:'s_walk',    icon:'🚶', label:'45 min walk', sub:'Separate block'},
-    {id:'s_meal1',   icon:'🍽️', label:'Meal 1 eaten', sub:'Protein + carbs for energy'},
-    {id:'s_read',    icon:'📖', label:'10 pages read', sub:'Non-fiction'},
-    {id:'s_apps',    icon:'💼', label:'3 job apps submitted', sub:'Logged in tracker'},
-    {id:'s_dinner',  icon:'🥗', label:'Dinner eaten (Meal 2/3)', sub:'Hit 1,500 cal minimum'},
-    {id:'s_mob',     icon:'🧘', label:'Mobility done', sub:'Full core + hip routine'},
+    {id:'s1', icon:'💧', label:'Morning water (16oz)',          sub:'First thing on wake'},
+    {id:'s2', icon:'💪', label:'45 min workout',                sub:'Any modality'},
+    {id:'s3', icon:'🚶', label:'45 min walk',                   sub:'Separate block'},
+    {id:'s4', icon:'🍽️', label:'Meal 1 eaten',                 sub:'Protein + carbs for energy'},
+    {id:'s5', icon:'📖', label:'10 pages read',                 sub:'Non-fiction'},
+    {id:'s6', icon:'💼', label:'3 job apps submitted',          sub:'Logged in tracker'},
+    {id:'s7', icon:'🥗', label:'Dinner eaten',                  sub:'Hit 1,500 cal minimum'},
+    {id:'s8', icon:'🧘', label:'Mobility done',                 sub:'Full core + hip routine'},
   ],
   nutrition: [
-    {id:'n_1500',    icon:'🔢', label:'1,500+ calories reached', sub:'Minimum — do not under-eat'},
-    {id:'n_100p',    icon:'💪', label:'100g+ protein', sub:'Across all meals'},
-    {id:'n_water',   icon:'💧', label:'1 gallon water', sub:'No exceptions'},
-    {id:'n_clean',   icon:'🚫', label:'No alcohol / cheat meals', sub:'Whole foods focus'},
-    {id:'n_veg',     icon:'🥦', label:'Vegetables at least 2 meals', sub:'Color on your plate'},
+    {id:'n1', icon:'🔢', label:'1,500+ calories reached',       sub:'Minimum — do not under-eat'},
+    {id:'n2', icon:'💪', label:'100g+ protein',                 sub:'Across all meals'},
+    {id:'n3', icon:'💧', label:'1 gallon water',                sub:'No exceptions'},
+    {id:'n4', icon:'🚫', label:'No alcohol / cheat meals',      sub:'Whole foods focus'},
+    {id:'n5', icon:'🥦', label:'Vegetables at 2+ meals',        sub:'Color on your plate'},
   ],
   mobility: [
-    {id:'m_core',    icon:'🔶', label:'Core section complete', sub:'All 5 exercises'},
-    {id:'m_hip',     icon:'🔷', label:'Hip / lower body section complete', sub:'All 6 exercises'},
-    {id:'m_breath',  icon:'🌬️', label:'Controlled breathing throughout', sub:'Slow, intentional movement'},
+    {id:'m1', icon:'🟠', label:'Core section complete',         sub:'All 5 exercises'},
+    {id:'m2', icon:'🟣', label:'Hip/lower body complete',       sub:'All 6 exercises'},
+    {id:'m3', icon:'🌬️', label:'Controlled breathing',         sub:'Slow, intentional movement'},
   ],
 };
 
-// --- JOBS ---
-function getJobs() {
-  try { return JSON.parse(localStorage.getItem(JOBS_KEY)) || []; } catch { return []; }
+// ===================== STATE =====================
+var viewingDay = null; // null = today
+
+// ===================== STORAGE =====================
+function getStartDate() {
+  var s = localStorage.getItem(SK);
+  if (s) return new Date(s);
+  var d = new Date(); d.setHours(0,0,0,0);
+  localStorage.setItem(SK, d.toISOString());
+  return d;
 }
-function saveJobs(jobs) { localStorage.setItem(JOBS_KEY, JSON.stringify(jobs)); }
-function getTodayStr() {
-  const n = new Date();
-  return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
+function getTodayNum() {
+  var start = getStartDate();
+  var now = new Date(); now.setHours(0,0,0,0);
+  return Math.max(1, Math.min(Math.floor((now - start) / 86400000) + 1, 75));
 }
-function getWeekStart() {
-  const n = new Date(); n.setHours(0,0,0,0);
-  const day = n.getDay(); n.setDate(n.getDate() - day);
+function getActiveDay() {
+  return (viewingDay !== null) ? viewingDay : getTodayNum();
+}
+function isToday() {
+  return viewingDay === null || viewingDay === getTodayNum();
+}
+function dayKey(n) { return 'd' + n; }
+
+function loadChecks() {
+  try { return JSON.parse(localStorage.getItem(CK)) || {}; } catch(e) { return {}; }
+}
+function saveChecks(obj) { localStorage.setItem(CK, JSON.stringify(obj)); }
+
+function isChecked(section, id, day) {
+  var d = (day !== undefined) ? day : getActiveDay();
+  var c = loadChecks(); var k = dayKey(d);
+  return !!(c[k] && c[k][section] && c[k][section][id]);
+}
+function toggleItem(section, id) {
+  if (!isToday()) return;
+  var c = loadChecks(); var k = dayKey(getActiveDay());
+  if (!c[k]) c[k] = {};
+  if (!c[k][section]) c[k][section] = {};
+  c[k][section][id] = !c[k][section][id];
+  saveChecks(c);
+  renderAllChecklists();
+  updateDayProgress();
+}
+function resetSection(section) {
+  if (!isToday()) return;
+  var c = loadChecks(); var k = dayKey(getActiveDay());
+  if (!c[k]) c[k] = {};
+  c[k][section] = {};
+  saveChecks(c);
+  renderAllChecklists();
+  updateDayProgress();
+}
+
+// ===================== JOBS =====================
+function loadJobs() {
+  try { return JSON.parse(localStorage.getItem(JK)) || []; } catch(e) { return []; }
+}
+function saveJobsData(arr) { localStorage.setItem(JK, JSON.stringify(arr)); }
+
+function todayDateStr() {
+  var n = new Date();
+  return n.getFullYear() + '-' +
+    String(n.getMonth()+1).padStart(2,'0') + '-' +
+    String(n.getDate()).padStart(2,'0');
+}
+function weekStartStr() {
+  var n = new Date(); n.setHours(0,0,0,0);
+  n.setDate(n.getDate() - n.getDay());
   return n.toISOString().split('T')[0];
 }
 
-const STATUSES = ['Applied','Interview','Offer','Rejected'];
-function cycleStatus(id) {
-  const jobs = getJobs();
-  const j = jobs.find(j => j.id === id);
-  if (!j) return;
-  const idx = STATUSES.indexOf(j.status);
-  j.status = STATUSES[(idx+1) % STATUSES.length];
-  saveJobs(jobs);
+var JOB_STATUSES = ['Applied','Interview','Offer','Rejected'];
+
+function cycleJobStatus(jobId) {
+  var jobs = loadJobs();
+  for (var i = 0; i < jobs.length; i++) {
+    if (jobs[i].id === jobId) {
+      var idx = JOB_STATUSES.indexOf(jobs[i].status);
+      jobs[i].status = JOB_STATUSES[(idx + 1) % JOB_STATUSES.length];
+      break;
+    }
+  }
+  saveJobsData(jobs);
   renderJobs();
 }
-function deleteJob(id) {
-  saveJobs(getJobs().filter(j => j.id !== id));
+function deleteJob(jobId) {
+  var jobs = loadJobs().filter(function(j) { return j.id !== jobId; });
+  saveJobsData(jobs);
   renderJobs();
   updateJobStats();
 }
 function addJob() {
-  const company = document.getElementById('jobCompany').value.trim();
-  const role = document.getElementById('jobRole').value.trim();
+  var company = document.getElementById('jobCompany').value.trim();
+  var role    = document.getElementById('jobRole').value.trim();
   if (!company && !role) return;
-  const jobs = getJobs();
-  jobs.unshift({ id: Date.now().toString(), date: getTodayStr(), company: company || '—', role: role || '—', status: 'Applied' });
-  saveJobs(jobs);
+  var jobs = loadJobs();
+  var newJob = { id: String(Date.now()), date: todayDateStr(), company: company || '—', role: role || '—', status: 'Applied' };
+  jobs.unshift(newJob);
+  saveJobsData(jobs);
   document.getElementById('jobCompany').value = '';
   document.getElementById('jobRole').value = '';
   renderJobs();
   updateJobStats();
-  // auto-check if 3 today
-  const todayCount = jobs.filter(j => j.date === getTodayStr()).length;
-  if (todayCount >= 3) {
-    const c = getChecks2(); const tk = getTodayKey2();
-    if (!c[tk]) c[tk] = {}; if (!c[tk]['today']) c[tk]['today'] = {};
-    c[tk]['today']['t_jobs'] = true;
-    saveChecks2(c); renderAllChecklists(); updateTodayProgress();
+  // auto-tick the job checklist item if 3 today
+  var todayJobs = jobs.filter(function(j) { return j.date === todayDateStr(); });
+  if (todayJobs.length >= 3) {
+    var c = loadChecks(); var k = dayKey(getActiveDay());
+    if (!c[k]) c[k] = {};
+    if (!c[k]['today']) c[k]['today'] = {};
+    c[k]['today']['t7'] = true;
+    saveChecks(c);
+    renderAllChecklists();
+    updateDayProgress();
   }
 }
 function renderJobs() {
-  const jobs = getJobs();
-  const tbody = document.getElementById('jobsTableBody');
+  var jobs = loadJobs();
+  var tbody = document.getElementById('jobsTableBody');
   if (!jobs.length) {
-    tbody.innerHTML = '<tr><td colspan="5" class="empty-jobs">No applications logged yet. Add your first one above.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="5" class="empty-jobs">No applications yet &mdash; add your first above.</td></tr>';
     return;
   }
-  tbody.innerHTML = jobs.map(j => `
-    <tr>
-      <td style="color:var(--muted2);font-size:11px">${j.date}</td>
-      <td style="font-weight:600;color:var(--text2)">${j.company}</td>
-      <td>${j.role}</td>
-      <td><span class="status-badge status-${j.status}" onclick="cycleStatus('${j.id}')">${j.status}</span></td>
-      <td><button class="del-btn" onclick="deleteJob('${j.id}')">×</button></td>
-    </tr>`).join('');
+  var rows = '';
+  for (var i = 0; i < jobs.length; i++) {
+    var j = jobs[i];
+    var safeId = j.id;
+    rows += '<tr>';
+    rows += '<td style="color:var(--muted2);font-size:11px">' + j.date + '</td>';
+    rows += '<td style="font-weight:600;color:var(--text2)">' + j.company + '</td>';
+    rows += '<td>' + j.role + '</td>';
+    rows += '<td><span class="status-badge status-' + j.status + '" onclick="cycleJobStatus(\'' + safeId + '\')">' + j.status + '</span></td>';
+    rows += '<td><button class="del-btn" onclick="deleteJob(\'' + safeId + '\')">&times;</button></td>';
+    rows += '</tr>';
+  }
+  tbody.innerHTML = rows;
 }
 function updateJobStats() {
-  const jobs = getJobs(); const today = getTodayStr(); const weekStart = getWeekStart();
-  const todayCount = jobs.filter(j => j.date === today).length;
-  const weekCount  = jobs.filter(j => j.date >= weekStart).length;
-  const interviews = jobs.filter(j => j.status === 'Interview' || j.status === 'Offer').length;
-  document.getElementById('jobsToday').textContent = todayCount;
-  document.getElementById('jobsWeek').textContent = weekCount;
-  document.getElementById('jobsTotal').textContent = jobs.length;
-  document.getElementById('jobsInterviews').textContent = interviews;
-  document.getElementById('jobsTodayBig').textContent = todayCount;
-  document.getElementById('jobsTodayBar').style.width = Math.min(100, Math.round(todayCount/3*100)) + '%';
-  document.getElementById('statApps').textContent = `${todayCount} / 3`;
+  var jobs = loadJobs();
+  var td = todayDateStr(); var ws = weekStartStr();
+  var tc = 0, wc = 0, ic = 0;
+  for (var i = 0; i < jobs.length; i++) {
+    if (jobs[i].date === td) tc++;
+    if (jobs[i].date >= ws) wc++;
+    if (jobs[i].status === 'Interview' || jobs[i].status === 'Offer') ic++;
+  }
+  document.getElementById('jobsToday').textContent = tc;
+  document.getElementById('jobsWeek').textContent  = wc;
+  document.getElementById('jobsTotal').textContent  = jobs.length;
+  document.getElementById('jobsInterviews').textContent = ic;
+  document.getElementById('jobsTodayBig').textContent  = tc;
+  document.getElementById('jobsTodayBar').style.width  = Math.min(100, Math.round(tc / 3 * 100)) + '%';
+  document.getElementById('statApps').textContent = tc + ' / 3';
 }
 
-// --- STORAGE ---
-function getStartDate() {
-  const s = localStorage.getItem(STORAGE_KEY);
-  if (s) return new Date(s);
-  const now = new Date(); now.setHours(0,0,0,0);
-  localStorage.setItem(STORAGE_KEY, now.toISOString());
-  return now;
+// ===================== NAV =====================
+function buildDaySelect() {
+  var sel = document.getElementById('dayJump');
+  var todayN = getTodayNum();
+  var activeN = getActiveDay();
+  sel.innerHTML = '';
+  for (var d = 1; d <= 75; d++) {
+    var opt = document.createElement('option');
+    opt.value = d;
+    opt.textContent = 'Day ' + d + (d === todayN ? ' (today)' : '');
+    if (d === activeN) opt.selected = true;
+    sel.appendChild(opt);
+  }
 }
-function getDayNumber(start) {
-  const now = new Date(); now.setHours(0,0,0,0);
-  return Math.max(1, Math.min(Math.floor((now-start)/86400000)+1, 75));
+function jumpToDay(n) {
+  n = parseInt(n);
+  viewingDay = (n === getTodayNum()) ? null : n;
+  refreshAll();
 }
-function getTodayKey2() {
-  const n = new Date();
-  return `${n.getFullYear()}-${n.getMonth()}-${n.getDate()}`;
+function navigateDay(delta) {
+  var cur = getActiveDay();
+  var next = Math.max(1, Math.min(75, cur + delta));
+  viewingDay = (next === getTodayNum()) ? null : next;
+  refreshAll();
 }
-function getChecks2() {
-  try { return JSON.parse(localStorage.getItem(CHECK_KEY)) || {}; } catch { return {}; }
+function goToToday() {
+  viewingDay = null;
+  refreshAll();
 }
-function saveChecks2(obj) { localStorage.setItem(CHECK_KEY, JSON.stringify(obj)); }
-function isChecked(section, id) {
-  const c = getChecks2(); const tk = getTodayKey2();
-  return !!(c[tk] && c[tk][section] && c[tk][section][id]);
-}
-function toggleCheck(section, id) {
-  const c = getChecks2(); const tk = getTodayKey2();
-  if (!c[tk]) c[tk] = {};
-  if (!c[tk][section]) c[tk][section] = {};
-  c[tk][section][id] = !c[tk][section][id];
-  saveChecks2(c); renderAllChecklists(); updateTodayProgress();
-}
-function resetChecklist(section) {
-  const c = getChecks2(); const tk = getTodayKey2();
-  if (!c[tk]) c[tk] = {};
-  c[tk][section] = {};
-  saveChecks2(c); renderAllChecklists(); updateTodayProgress();
+function updateNavButtons() {
+  var cur = getActiveDay();
+  document.getElementById('navPrev').disabled = (cur <= 1);
+  document.getElementById('navNext').disabled = (cur >= 75);
+  var badge = document.getElementById('viewingBadge');
+  var notice = document.getElementById('viewingNotice');
+  var rb = document.getElementById('resetTodayBtn');
+  if (isToday()) {
+    badge.textContent = 'TODAY';
+    badge.className = 'viewing-badge is-today';
+    notice.style.display = 'none';
+    if (rb) rb.style.display = '';
+  } else {
+    badge.textContent = 'DAY ' + cur;
+    badge.className = 'viewing-badge';
+    document.getElementById('viewingNoticeText').textContent = 'Viewing Day ' + cur;
+    notice.style.display = 'flex';
+    if (rb) rb.style.display = 'none';
+  }
 }
 
+// ===================== RENDER HEADER =====================
+function renderHeader() {
+  var dayNum = getActiveDay();
+  var pct = Math.round(dayNum / 75 * 100);
+  var daysLeft = 75 - dayNum;
+  var start = getStartDate();
+  var circ = 2 * Math.PI * 36;
+
+  document.getElementById('dayNum').textContent  = dayNum;
+  document.getElementById('daysLeft').textContent = daysLeft > 0 ? daysLeft + ' DAYS REMAINING' : '🔥 COMPLETE';
+  document.getElementById('startedLabel').textContent =
+    'STARTED ' + start.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}).toUpperCase();
+  document.getElementById('ringPct').textContent = pct + '%';
+  document.getElementById('progBar').style.width = pct + '%';
+  document.getElementById('ringFill').setAttribute('stroke-dashoffset', String(circ * (1 - pct/100)));
+  document.getElementById('checkDayNum').textContent = dayNum;
+
+  // Update all daySpan elements
+  var spans = document.querySelectorAll('.daySpan');
+  for (var i = 0; i < spans.length; i++) { spans[i].textContent = dayNum; }
+
+  document.getElementById('dayJump').value = dayNum;
+  if (daysLeft <= 0 && isToday()) document.getElementById('completeBanner').style.display = 'block';
+}
+
+// ===================== RENDER CHECKLISTS =====================
 function renderCheckSection(containerId, section, items) {
-  const el = document.getElementById(containerId);
+  var el = document.getElementById(containerId);
   if (!el) return;
-  el.innerHTML = items.map(item => {
-    const done = isChecked(section, item.id);
-    return `<div class="check-row ${done?'done':''}" onclick="toggleCheck('${section}','${item.id}')">
-      <div class="check-box"><span class="check-box-tick">✓</span></div>
-      <span style="font-size:18px;flex-shrink:0">${item.icon}</span>
-      <div><div class="check-text">${item.label}</div><div class="check-sub">${item.sub}</div></div>
-    </div>`;
-  }).join('');
+  var locked = !isToday();
+  var html = '';
+  for (var i = 0; i < items.length; i++) {
+    var item = items[i];
+    var done = isChecked(section, item.id);
+    var cls = 'check-row' + (done ? ' done' : '') + (locked ? ' locked' : '');
+    var onclick = locked ? '' : 'onclick="toggleItem(\'' + section + '\',\'' + item.id + '\')"';
+    html += '<div class="' + cls + '" ' + onclick + '>';
+    html += '<div class="check-box"><span class="check-tick">&#10003;</span></div>';
+    html += '<span style="font-size:17px;flex-shrink:0">' + item.icon + '</span>';
+    html += '<div><div class="check-text">' + item.label + '</div>';
+    html += '<div class="check-sub">' + item.sub + '</div></div>';
+    html += '</div>';
+  }
+  el.innerHTML = html;
 }
 function renderAllChecklists() {
-  renderCheckSection('checklistItems',    'today',     CHECKS.today);
-  renderCheckSection('scheduleChecklist', 'schedule',  CHECKS.schedule);
-  renderCheckSection('nutritionChecklist','nutrition', CHECKS.nutrition);
-  renderCheckSection('mobilityChecklist', 'mobility',  CHECKS.mobility);
+  renderCheckSection('checklistItems',   'today',     CL.today);
+  renderCheckSection('scheduleChecklist','schedule',  CL.schedule);
+  renderCheckSection('nutritionChecklist','nutrition',CL.nutrition);
+  renderCheckSection('mobilityChecklist','mobility',  CL.mobility);
 }
-function updateTodayProgress() {
-  const total = CHECKS.today.length;
-  const done  = CHECKS.today.filter(i => isChecked('today', i.id)).length;
-  const pct   = total > 0 ? Math.round((done/total)*100) : 0;
-  document.getElementById('todayProgFill').style.width = pct+'%';
-  document.getElementById('todayProgCount').textContent = `${done} / ${total}`;
+function updateDayProgress() {
+  var dayNum = getActiveDay();
+  var total = CL.today.length;
+  var done = 0;
+  for (var i = 0; i < CL.today.length; i++) {
+    if (isChecked('today', CL.today[i].id, dayNum)) done++;
+  }
+  var pct = total > 0 ? Math.round(done / total * 100) : 0;
+  document.getElementById('todayProgFill').style.width = pct + '%';
+  document.getElementById('todayProgCount').textContent = done + ' / ' + total;
 }
 
-function renderHeader(dayNum) {
-  const pct = Math.round((dayNum/75)*100); const daysLeft = 75-dayNum;
-  const start = getStartDate(); const circ = 2*Math.PI*37;
-  document.getElementById('dayNum').textContent = dayNum;
-  document.getElementById('daysLeft').textContent = daysLeft > 0 ? `${daysLeft} DAYS REMAINING` : '🔥 COMPLETE';
-  document.getElementById('startedLabel').textContent = `STARTED ${start.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}).toUpperCase()}`;
-  document.getElementById('ringPct').textContent = pct+'%';
-  document.getElementById('progBar').style.width = pct+'%';
-  document.getElementById('ringFill').setAttribute('stroke-dashoffset', circ*(1-pct/100));
-  document.getElementById('checkDayNum').textContent = dayNum;
-  document.querySelectorAll('.checkDayDisplay').forEach(el => el.textContent = dayNum);
-  if (daysLeft <= 0) document.getElementById('completeBanner').style.display = 'block';
-}
+// ===================== RENDER SCHEDULE =====================
 function renderSchedule() {
-  document.getElementById('scheduleContent').innerHTML = SCHEDULE.map(row => {
-    const t = TAG[row.tag];
-    return `<div class="sched-row" style="background:${t.bg};border-color:${t.border}">
-      <div class="sched-time">${row.time}</div>
-      <div class="sched-block-wrap"><div class="dot" style="background:${t.dot}"></div><div class="sched-block">${row.block}</div></div>
-      <div class="sched-detail">${row.detail}</div>
-    </div>`;
-  }).join('');
-}
-function renderNutrition() {
-  document.getElementById('mealCards').innerHTML = MEALS.map(m=>`
-    <div class="meal-card">
-      <div class="meal-header">
-        <div class="meal-title">${m.label}</div>
-        <div class="meal-macros"><span style="color:#b07800">${m.cal}</span><span style="color:#1a7a4a;margin-left:10px">${m.protein} protein</span></div>
-      </div>
-      ${m.items.map(i=>`<div class="meal-item"><span class="meal-dash">—</span>${i}</div>`).join('')}
-    </div>`).join('');
-}
-function renderMobility() {
-  document.getElementById('coreRows').innerHTML = CORE.map(e=>
-    `<div class="mob-row"><div class="mob-name">${e.name}</div><div class="mob-sets">${e.sets}</div></div>`).join('');
-  document.getElementById('hipRows').innerHTML = HIP.map(e=>
-    `<div class="mob-row"><div class="mob-name">${e.name}</div><div class="mob-sets">${e.sets}</div></div>`).join('');
+  var html = '';
+  for (var i = 0; i < SCHEDULE.length; i++) {
+    var row = SCHEDULE[i];
+    var t = STAG[row.tag];
+    html += '<div class="sched-row" style="background:' + t.bg + ';border-color:' + t.border + '">';
+    html += '<div class="sched-time">' + row.time + '</div>';
+    html += '<div class="sched-block-wrap"><div class="dot" style="background:' + t.dot + '"></div>';
+    html += '<div class="sched-block">' + row.block + '</div></div>';
+    html += '<div class="sched-detail">' + row.detail + '</div>';
+    html += '</div>';
+  }
+  document.getElementById('scheduleContent').innerHTML = html;
 }
 
+// ===================== RENDER NUTRITION =====================
+function renderNutrition() {
+  var html = '';
+  for (var i = 0; i < MEALS.length; i++) {
+    var m = MEALS[i];
+    html += '<div class="meal-card">';
+    html += '<div class="meal-header">';
+    html += '<div class="meal-title">' + m.label + '</div>';
+    html += '<div class="meal-macros"><span style="color:#b07800">' + m.cal + '</span>';
+    html += '<span style="color:#1a7a4a;margin-left:10px">' + m.protein + ' protein</span></div>';
+    html += '</div>';
+    for (var j = 0; j < m.items.length; j++) {
+      html += '<div class="meal-item"><span class="meal-dash">&mdash;</span>' + m.items[j] + '</div>';
+    }
+    html += '</div>';
+  }
+  document.getElementById('mealCards').innerHTML = html;
+}
+
+// ===================== RENDER MOBILITY =====================
+function renderMobility() {
+  var ch = ''; var hh = '';
+  for (var i = 0; i < CORE.length; i++) {
+    ch += '<div class="mob-row"><div class="mob-name">' + CORE[i].name + '</div><div class="mob-sets">' + CORE[i].sets + '</div></div>';
+  }
+  for (var i = 0; i < HIP.length; i++) {
+    hh += '<div class="mob-row"><div class="mob-name">' + HIP[i].name + '</div><div class="mob-sets">' + HIP[i].sets + '</div></div>';
+  }
+  document.getElementById('coreRows').innerHTML = ch;
+  document.getElementById('hipRows').innerHTML  = hh;
+}
+
+// ===================== RENDER METRICS =====================
+function getCatItems(cat) {
+  return CL.today.filter(function(i) { return i.cat === cat; });
+}
+function getDayComp(dayNum, cat) {
+  var items = cat ? getCatItems(cat) : CL.today;
+  if (!items.length) return 0;
+  var done = 0;
+  for (var i = 0; i < items.length; i++) {
+    if (isChecked('today', items[i].id, dayNum)) done++;
+  }
+  return done / items.length;
+}
+function renderMetrics() {
+  var todayN = getTodayNum();
+  var totalPoss = 0, totalDone = 0, perfectDays = 0, curStreak = 0, longestStreak = 0, tmp = 0;
+  for (var d = 1; d <= todayN; d++) {
+    var n = CL.today.length;
+    var done = 0;
+    for (var i = 0; i < CL.today.length; i++) {
+      if (isChecked('today', CL.today[i].id, d)) done++;
+    }
+    totalPoss += n; totalDone += done;
+    if (done === n) { perfectDays++; tmp++; longestStreak = Math.max(longestStreak, tmp); }
+    else tmp = 0;
+  }
+  for (var d = todayN; d >= 1; d--) {
+    if (getDayComp(d, null) >= 1) curStreak++; else break;
+  }
+  var overallPct  = totalPoss > 0 ? Math.round(totalDone / totalPoss * 100) : 0;
+  var todayPct    = Math.round(getDayComp(todayN, null) * 100);
+  var perfectPct  = todayN > 0 ? Math.round(perfectDays / todayN * 100) : 0;
+
+  var catDefs = [
+    {cat:'exercise',  label:'EXERCISE & MOVEMENT',   color:'#1a7a4a'},
+    {cat:'nutrition', label:'NUTRITION',              color:'#1a6fa8'},
+    {cat:'other',     label:'GOALS & HABITS',         color:'#b07800'},
+  ];
+
+  var jobs = loadJobs();
+  var start = getStartDate();
+  var daysWithThree = 0;
+  for (var d = 1; d <= todayN; d++) {
+    var dd = new Date(start); dd.setDate(dd.getDate() + d - 1);
+    var ds = dd.getFullYear() + '-' +
+      String(dd.getMonth()+1).padStart(2,'0') + '-' +
+      String(dd.getDate()).padStart(2,'0');
+    var cnt = jobs.filter(function(j) { return j.date === ds; }).length;
+    if (cnt >= 3) daysWithThree++;
+  }
+  var ic = jobs.filter(function(j) { return j.status === 'Interview' || j.status === 'Offer'; }).length;
+
+  var html = '';
+  // Summary cards
+  html += '<div class="metrics-grid">';
+  html += '<div class="met-card"><div class="met-label">OVERALL</div><div class="met-val" style="color:var(--accent)">' + overallPct + '%</div><div class="met-sub">' + totalDone + ' of ' + totalPoss + ' tasks</div></div>';
+  html += '<div class="met-card"><div class="met-label">DAYS LOGGED</div><div class="met-val" style="color:var(--blue)">' + todayN + '</div><div class="met-sub">of 75 days</div></div>';
+  html += '<div class="met-card"><div class="met-label">PERFECT DAYS</div><div class="met-val" style="color:var(--green)">' + perfectDays + '</div><div class="met-sub">' + perfectPct + '% of days</div></div>';
+  html += '<div class="met-card"><div class="met-label">TODAY</div><div class="met-val" style="color:' + (todayPct >= 100 ? 'var(--green)' : 'var(--amber)') + '">' + todayPct + '%</div><div class="met-sub">Day ' + todayN + ' complete</div></div>';
+  html += '</div>';
+
+  // Streaks
+  html += '<div class="streak-row">';
+  html += '<div class="streak-card"><div class="streak-val">' + curStreak + '</div><div class="streak-label">CURRENT STREAK<br>PERFECT DAYS</div></div>';
+  html += '<div class="streak-card"><div class="streak-val" style="color:var(--green)">' + longestStreak + '</div><div class="streak-label">LONGEST STREAK<br>PERFECT DAYS</div></div>';
+  html += '<div class="streak-card"><div class="streak-val" style="color:var(--teal)">' + (75 - todayN) + '</div><div class="streak-label">DAYS<br>REMAINING</div></div>';
+  html += '</div>';
+
+  // Job apps section
+  var jpct = todayN > 0 ? Math.round(daysWithThree / todayN * 100) : 0;
+  html += '<div class="cat-section">';
+  html += '<div class="cat-header"><div class="cat-title">JOB APPLICATIONS</div><div class="cat-pct" style="color:var(--accent)">' + jobs.length + ' total</div></div>';
+  html += '<div class="jobs-mini-grid">';
+  html += '<div class="jobs-mini-stat"><div class="jobs-mini-label">TOTAL APPS</div><div class="jobs-mini-val" style="color:var(--accent)">' + jobs.length + '</div></div>';
+  html += '<div class="jobs-mini-stat"><div class="jobs-mini-label">3+ APP DAYS</div><div class="jobs-mini-val" style="color:var(--green)">' + daysWithThree + '</div></div>';
+  html += '<div class="jobs-mini-stat"><div class="jobs-mini-label">INTERVIEWS</div><div class="jobs-mini-val" style="color:var(--teal)">' + ic + '</div></div>';
+  html += '</div>';
+  html += '<div class="cat-bar-wrap"><div class="cat-bar" style="width:' + Math.min(100,jpct) + '%;background:var(--accent)"></div></div>';
+  html += '<div style="font-size:11px;color:var(--muted);font-family:\'Barlow\',sans-serif">' + daysWithThree + ' of ' + todayN + ' days hit 3-app target (' + jpct + '%)</div>';
+  html += '</div>';
+
+  // Category sections
+  for (var ci = 0; ci < catDefs.length; ci++) {
+    var catDef = catDefs[ci];
+    var catItems = getCatItems(catDef.cat);
+    if (!catItems.length) continue;
+    var catDone = 0, catPoss = 0;
+    for (var d = 1; d <= todayN; d++) {
+      catPoss += catItems.length;
+      for (var ii = 0; ii < catItems.length; ii++) {
+        if (isChecked('today', catItems[ii].id, d)) catDone++;
+      }
+    }
+    var catPct = catPoss > 0 ? Math.round(catDone / catPoss * 100) : 0;
+
+    // Item rows
+    var itemRows = '';
+    for (var ii = 0; ii < catItems.length; ii++) {
+      var item = catItems[ii];
+      var iDone = 0;
+      for (var d = 1; d <= todayN; d++) { if (isChecked('today', item.id, d)) iDone++; }
+      var iPct = todayN > 0 ? Math.round(iDone / todayN * 100) : 0;
+      var bc = iPct >= 80 ? 'var(--green)' : iPct >= 50 ? 'var(--amber)' : 'var(--red)';
+      itemRows += '<div class="item-row">';
+      itemRows += '<span class="item-name">' + item.icon + ' ' + item.label + '</span>';
+      itemRows += '<div class="item-bar-wrap"><div class="item-bar" style="width:' + iPct + '%;background:' + bc + '"></div></div>';
+      itemRows += '<span class="item-pct" style="color:' + bc + '">' + iPct + '%</span>';
+      itemRows += '</div>';
+    }
+
+    // Heatmap dots
+    var dots = '';
+    for (var d = 1; d <= 75; d++) {
+      if (d > todayN) {
+        dots += '<div class="day-dot future" title="Day ' + d + '"></div>';
+      } else {
+        var comp = getDayComp(d, catDef.cat);
+        var dcls = comp >= 1 ? 'full' : comp > 0 ? 'partial' : 'empty';
+        var extra = (d === todayN) ? ' today-ring' : '';
+        dots += '<div class="day-dot ' + dcls + extra + '" title="Day ' + d + ': ' +
+          Math.round(comp*100) + '%" onclick="jumpToDay(' + d + ')"></div>';
+      }
+    }
+
+    html += '<div class="cat-section">';
+    html += '<div class="cat-header"><div class="cat-title">' + catDef.label + '</div><div class="cat-pct" style="color:' + catDef.color + '">' + catPct + '%</div></div>';
+    html += '<div class="cat-bar-wrap"><div class="cat-bar" style="width:' + catPct + '%;background:' + catDef.color + '"></div></div>';
+    html += '<div style="font-size:11px;color:var(--muted);font-family:\'Barlow\',sans-serif;margin-bottom:10px">' + catDone + ' of ' + catPoss + ' tasks across ' + todayN + ' days</div>';
+    html += itemRows;
+    html += '<div style="margin-top:14px;font-size:10px;color:var(--muted2);letter-spacing:1.5px;margin-bottom:6px">75-DAY HEATMAP &mdash; click a dot to view that day</div>';
+    html += '<div class="cat-items">' + dots + '</div>';
+    html += '<div class="heatmap-legend">';
+    html += '<div class="legend-dot" style="background:var(--green)"></div>100% ';
+    html += '<div class="legend-dot" style="background:var(--amber)"></div>Partial ';
+    html += '<div class="legend-dot" style="background:var(--bg3);border:1px solid var(--border)"></div>0% ';
+    html += '<div class="legend-dot" style="background:var(--border)"></div>Future';
+    html += '</div></div>';
+  }
+
+  document.getElementById('metricsContent').innerHTML = html;
+}
+
+// ===================== TABS =====================
 function switchTab(name, btn) {
-  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  const pane = document.getElementById('tab-'+name);
+  var panes = document.querySelectorAll('.tab-pane');
+  var btns  = document.querySelectorAll('.tab-btn');
+  for (var i = 0; i < panes.length; i++) panes[i].classList.remove('active');
+  for (var i = 0; i < btns.length; i++)  btns[i].classList.remove('active');
+  var pane = document.getElementById('tab-' + name);
   pane.classList.add('active');
   pane.classList.remove('fade-in'); void pane.offsetWidth; pane.classList.add('fade-in');
   btn.classList.add('active');
+  if (name === 'metrics') renderMetrics();
 }
+
+// ===================== DATE EDITOR =====================
 function showDateEdit() {
-  document.getElementById('dateEditArea').style.display = 'inline-flex';
-  document.getElementById('setDateBtn').style.display = 'none';
-  const s = getStartDate();
-  document.getElementById('dateInput').value = `${s.getFullYear()}-${String(s.getMonth()+1).padStart(2,'0')}-${String(s.getDate()).padStart(2,'0')}`;
+  document.getElementById('dateEditArea').style.display = 'flex';
+  document.getElementById('setDateBtn').style.display  = 'none';
+  var s = getStartDate();
+  document.getElementById('dateInput').value =
+    s.getFullYear() + '-' +
+    String(s.getMonth()+1).padStart(2,'0') + '-' +
+    String(s.getDate()).padStart(2,'0');
 }
 function hideDateEdit() {
   document.getElementById('dateEditArea').style.display = 'none';
-  document.getElementById('setDateBtn').style.display = '';
+  document.getElementById('setDateBtn').style.display  = '';
 }
 function saveStartDate() {
-  const val = document.getElementById('dateInput').value;
+  var val = document.getElementById('dateInput').value;
   if (!val) return;
-  localStorage.setItem(STORAGE_KEY, new Date(val+'T00:00:00').toISOString());
-  hideDateEdit(); init();
+  localStorage.setItem(SK, new Date(val + 'T00:00:00').toISOString());
+  hideDateEdit();
+  viewingDay = null;
+  initAll();
 }
 
-function init() {
-  const start = getStartDate();
-  const dayNum = getDayNumber(start);
-  renderHeader(dayNum);
+// ===================== REFRESH =====================
+function refreshAll() {
+  buildDaySelect();
+  renderHeader();
+  renderAllChecklists();
+  updateDayProgress();
+  updateNavButtons();
+  updateJobStats();
+}
+
+function initAll() {
+  buildDaySelect();
+  renderHeader();
   renderSchedule();
   renderNutrition();
   renderMobility();
   renderAllChecklists();
-  updateTodayProgress();
+  updateDayProgress();
+  updateNavButtons();
   renderJobs();
   updateJobStats();
 }
 
-init();
+initAll();
 </script>
 </body>
 </html>
