@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>75 HARD — Malaika's Protocol</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f6f9;
+    --bg2: #ffffff;
+    --bg3: #f0eef5;
+    --border: #e0dcea;
+    --border2: #eae7f2;
+    --accent: #7c3aed;
+    --accent2: #a855f7;
+    --green: #1a7a4a;
+    --blue: #1a6fa8;
+    --teal: #0d8f7a;
+    --amber: #b07800;
+    --red: #c0392b;
+    --muted: #6b6578;
+    --muted2: #8a8398;
+    --text: #1a1728;
+    --text2: #3d3658;
+    --text3: #5a5270;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Barlow Condensed', sans-serif; min-height: 100vh; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-thumb { background: #d4d0e0; border-radius: 2px; }
+
+  @keyframes fadeup { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes glow-pulse { 0%,100%{box-shadow:0 0 16px rgba(124,58,237,.15)} 50%{box-shadow:0 0 28px rgba(124,58,237,.3)} }
+  .fade-in { animation: fadeup .3s ease forwards; }
+
+  #header {
+    background: linear-gradient(160deg, #faf8ff 0%, #fff 100%);
+    border-bottom: 2px solid var(--border);
+    padding: 26px 28px 18px;
+  }
+  .header-inner { max-width: 940px; margin: 0 auto; }
+  .header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; }
+  .badge { font-size: 10px; letter-spacing: 4px; color: var(--accent); font-weight: 700; margin-bottom: 6px; }
+  .day-display { font-size: 52px; font-weight: 900; line-height: 1; letter-spacing: -1px; color: var(--text); }
+  .day-display span.num { color: var(--accent); }
+  .day-display span.denom { color: #ccc8dc; }
+  .subtitle { font-size: 12px; color: var(--muted); margin-top: 8px; letter-spacing: 1px; }
+  .subtitle .started { color: #bbb8cc; margin-left: 14px; }
+
+  .ring-wrap { position: relative; width: 88px; height: 88px; flex-shrink: 0; }
+  .ring-wrap svg { transform: rotate(-90deg); }
+  .ring-track { fill: none; stroke: #e8e4f2; stroke-width: 5; }
+  .ring-fill { fill: none; stroke: var(--accent); stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset 1.2s ease; }
+  .ring-label { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .ring-pct { font-size: 22px; font-weight: 900; color: var(--text); line-height: 1; }
+  .ring-sub { font-size: 9px; color: var(--muted2); letter-spacing: 1px; }
+
+  .prog-bar-wrap { height: 3px; background: #e8e4f2; border-radius: 2px; margin-bottom: 18px; }
+  .prog-bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 2px; transition: width 1.2s ease; }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .stat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+  .stat-label { font-size: 9px; color: var(--muted2); letter-spacing: 2px; margin-bottom: 5px; }
+  .stat-val { font-size: 14px; font-weight: 800; letter-spacing: .5px; }
+
+  .date-row { margin-top: 14px; display: flex; align-items: center; gap: 10px; }
+  .btn-ghost { font-size: 10px; color: var(--muted2); letter-spacing: 1.5px; background: none; border: 1px solid var(--border); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-family: inherit; transition: all .2s; }
+  .btn-ghost:hover { color: var(--text2); border-color: var(--muted); }
+  .btn-accent { font-size: 11px; color: var(--accent); background: none; border: 1px solid var(--accent); padding: 5px 12px; border-radius: 4px; cursor: pointer; font-family: inherit; letter-spacing: 1px; transition: background .2s; }
+  .btn-accent:hover { background: rgba(124,58,237,.07); }
+  input[type=date] { background: #fff; border: 1px solid var(--border); color: var(--text); font-family: inherit; padding: 5px 10px; border-radius: 4px; font-size: 13px; cursor: pointer; }
+
+  #rules-strip { background: #fff; border-bottom: 1px solid var(--border); padding: 14px 28px; }
+  .rules-inner { max-width: 940px; margin: 0 auto; }
+  .rules-title { font-size: 9px; color: var(--accent); letter-spacing: 3px; margin-bottom: 10px; font-weight: 700; }
+  .rules-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .rule-card { border: 1px solid var(--border); background: var(--bg); border-radius: 8px; padding: 11px 14px; display: flex; align-items: center; gap: 12px; }
+  .rule-icon { font-size: 18px; flex-shrink: 0; }
+  .rule-name { font-size: 13px; font-weight: 700; color: var(--text); }
+  .rule-sub { font-size: 11px; color: var(--muted); font-family: 'Barlow', sans-serif; }
+
+  #main { max-width: 940px; margin: 0 auto; padding: 0 28px 60px; }
+  .tab-bar { display: flex; gap: 20px; border-bottom: 2px solid var(--border2); margin-bottom: 22px; margin-top: 6px; overflow-x: auto; }
+  .tab-btn { background: none; border: none; color: var(--muted2); font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 2px; cursor: pointer; padding: 10px 0; border-bottom: 2px solid transparent; transition: all .2s; margin-bottom: -2px; white-space: nowrap; }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-btn:hover:not(.active) { color: var(--text2); }
+  .tab-pane { display: none; }
+  .tab-pane.active { display: block; }
+
+  .section-check-title { font-size: 9px; color: var(--accent); letter-spacing: 3px; font-weight: 700; margin-bottom: 12px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border2); }
+
+  .sched-row { display: grid; grid-template-columns: 72px 165px 1fr; align-items: start; gap: 14px; padding: 11px 14px; border-radius: 8px; margin-bottom: 7px; border: 1px solid; transition: all .15s; }
+  .sched-row:hover { box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+  .sched-time { font-size: 12px; color: var(--muted2); font-family: 'Barlow', sans-serif; padding-top: 1px; }
+  .sched-block-wrap { display: flex; align-items: center; gap: 8px; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .sched-block { font-size: 13px; font-weight: 700; color: var(--text2); letter-spacing: .5px; }
+  .sched-detail { font-size: 12px; color: var(--text3); font-family: 'Barlow', sans-serif; line-height: 1.55; }
+
+  .macro-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 20px; }
+  .macro-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+  .macro-label { font-size: 9px; color: var(--muted2); letter-spacing: 2px; margin-bottom: 7px; }
+  .macro-val { font-size: 26px; font-weight: 900; }
+  .meal-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; margin-bottom: 10px; box-shadow: 0 1px 4px rgba(0,0,0,.04); }
+  .meal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .meal-title { font-size: 14px; font-weight: 700; }
+  .meal-macros { display: flex; gap: 12px; font-size: 12px; font-family: 'Barlow', sans-serif; }
+  .meal-item { font-size: 12px; color: var(--text3); font-family: 'Barlow', sans-serif; line-height: 1.7; display: flex; gap: 8px; }
+  .meal-dash { color: #c8c4d8; }
+
+  /* MOBILITY — daily, both sections */
+  .mob-section { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; margin-bottom: 14px; }
+  .mob-section-title { font-size: 11px; letter-spacing: 2px; font-weight: 700; margin-bottom: 14px; }
+  .mob-row { background: var(--bg3); border: 1px solid var(--border2); border-radius: 6px; padding: 10px 14px; margin-bottom: 7px; display: flex; justify-content: space-between; align-items: center; }
+  .mob-name { font-size: 13px; font-weight: 600; color: var(--text2); }
+  .mob-sets { font-size: 12px; color: var(--muted); font-family: 'Barlow', sans-serif; }
+
+  /* JOB APPS */
+  .jobs-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .jobs-title { font-size: 11px; letter-spacing: 2px; font-weight: 700; color: var(--accent); }
+  .jobs-streak { font-size: 12px; color: var(--muted); font-family: 'Barlow', sans-serif; }
+  .job-input-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; margin-bottom: 16px; }
+  .job-input { background: #fff; border: 1px solid var(--border); color: var(--text); font-family: 'Barlow', sans-serif; padding: 9px 12px; border-radius: 6px; font-size: 13px; width: 100%; transition: border-color .2s; }
+  .job-input:focus { outline: none; border-color: var(--accent); }
+  .btn-add { background: var(--accent); color: #fff; border: none; border-radius: 6px; padding: 9px 18px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 1px; cursor: pointer; transition: background .2s; white-space: nowrap; }
+  .btn-add:hover { background: #6d28d9; }
+  .jobs-today-count { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 16px; }
+  .jobs-count-num { font-size: 36px; font-weight: 900; color: var(--accent); line-height: 1; }
+  .jobs-count-label { font-size: 11px; color: var(--muted); letter-spacing: 1px; }
+  .jobs-count-bar-wrap { flex: 1; height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+  .jobs-count-bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 3px; transition: width .4s ease; }
+  .app-table { width: 100%; border-collapse: collapse; font-family: 'Barlow', sans-serif; }
+  .app-table th { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 2px; color: var(--muted2); text-align: left; padding: 0 12px 10px; border-bottom: 1px solid var(--border); }
+  .app-table td { font-size: 13px; color: var(--text3); padding: 10px 12px; border-bottom: 1px solid var(--border2); vertical-align: middle; }
+  .app-table tr:last-child td { border-bottom: none; }
+  .app-table tr:hover td { background: var(--bg3); }
+  .status-badge { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; padding: 2px 8px; border-radius: 12px; cursor: pointer; }
+  .status-Applied   { background: #e8f4ff; color: #1a6fa8; border: 1px solid #b0d4f0; }
+  .status-Interview { background: #f0fff8; color: #1a7a4a; border: 1px solid #a0dfc0; }
+  .status-Rejected  { background: #fff4f4; color: #c0392b; border: 1px solid #f0c0c0; }
+  .status-Offer     { background: #f8f0ff; color: #7c3aed; border: 1px solid #d8b8f8; }
+  .del-btn { background: none; border: none; color: #d0ccd8; cursor: pointer; font-size: 16px; transition: color .2s; padding: 2px 6px; }
+  .del-btn:hover { color: var(--red); }
+  .empty-jobs { text-align: center; padding: 32px; color: var(--muted2); font-family: 'Barlow', sans-serif; font-size: 13px; }
+  .total-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 20px; }
+  .total-stat { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; text-align: center; }
+  .total-stat-label { font-size: 9px; color: var(--muted2); letter-spacing: 1.5px; margin-bottom: 5px; }
+  .total-stat-val { font-size: 24px; font-weight: 900; }
+
+  /* CHECKLISTS */
+  .check-row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 7px; cursor: pointer; transition: all .15s; user-select: none; box-shadow: 0 1px 3px rgba(0,0,0,.03); }
+  .check-row:hover { background: #f5f3fc; }
+  .check-row.done { opacity: .55; }
+  .check-row.done .check-text, .check-row.done .check-sub { text-decoration: line-through; }
+  .check-box { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all .2s; background: #fff; }
+  .check-row.done .check-box { background: var(--accent); border-color: var(--accent); }
+  .check-box-tick { color: #fff; font-size: 12px; font-weight: 900; display: none; }
+  .check-row.done .check-box-tick { display: block; }
+  .check-text { font-size: 13px; font-weight: 600; color: var(--text2); }
+  .check-sub { font-size: 11px; color: var(--muted); font-family: 'Barlow', sans-serif; }
+  .reset-btn { width: 100%; margin-top: 10px; padding: 11px; background: #fff; border: 1px solid var(--border); border-radius: 8px; color: var(--muted2); font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 2px; cursor: pointer; transition: all .2s; }
+  .reset-btn:hover { background: var(--bg3); color: var(--text2); }
+  .complete-banner { background: linear-gradient(135deg, #f8f4ff, #f0e8ff); border: 1px solid #c8a8f8; border-radius: 10px; padding: 24px; text-align: center; margin-bottom: 16px; animation: glow-pulse 3s infinite; }
+  .complete-num { font-size: 56px; font-weight: 900; color: var(--accent); line-height: 1; }
+  .complete-label { font-size: 12px; color: var(--accent); letter-spacing: 3px; margin-top: 6px; }
+  .day-progress-bar { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 14px; }
+  .day-prog-label { font-size: 10px; color: var(--muted2); letter-spacing: 1.5px; flex-shrink: 0; }
+  .day-prog-track { flex: 1; height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+  .day-prog-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 3px; transition: width .4s ease; }
+  .day-prog-count { font-size: 12px; font-weight: 700; color: var(--accent); flex-shrink: 0; }
+
+  @media (max-width: 640px) {
+    .stat-grid { grid-template-columns: repeat(3,1fr); }
+    .rules-grid { grid-template-columns: 1fr 1fr; }
+    .macro-grid { grid-template-columns: repeat(2,1fr); }
+    .sched-row { grid-template-columns: 60px 1fr; }
+    .job-input-row { grid-template-columns: 1fr; }
+    .total-stats { grid-template-columns: repeat(2,1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div id="header">
+  <div class="header-inner">
+    <div class="header-top">
+      <div>
+        <div class="badge">◆ 75 HARD — MALAIKA'S PROTOCOL</div>
+        <div class="day-display">DAY <span class="num" id="dayNum">1</span><span class="denom"> / 75</span></div>
+        <div class="subtitle">
+          <span id="daysLeft">74 DAYS REMAINING</span>
+          <span class="started" id="startedLabel"></span>
+        </div>
+      </div>
+      <div class="ring-wrap">
+        <svg width="88" height="88" viewBox="0 0 88 88">
+          <circle class="ring-track" cx="44" cy="44" r="37"/>
+          <circle class="ring-fill" id="ringFill" cx="44" cy="44" r="37" stroke-dasharray="232.48" stroke-dashoffset="232.48"/>
+        </svg>
+        <div class="ring-label">
+          <div class="ring-pct" id="ringPct">0%</div>
+          <div class="ring-sub">DONE</div>
+        </div>
+      </div>
+    </div>
+    <div class="prog-bar-wrap"><div class="prog-bar" id="progBar" style="width:0%"></div></div>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-label">WORKOUT</div><div class="stat-val" style="color:#7c3aed">45 MIN</div></div>
+      <div class="stat-card"><div class="stat-label">WALK</div><div class="stat-val" style="color:#0d8f7a">45 MIN</div></div>
+      <div class="stat-card"><div class="stat-label">CALORIES</div><div class="stat-val" style="color:#b07800">≥1,500</div></div>
+      <div class="stat-card"><div class="stat-label">JOB APPS</div><div class="stat-val" style="color:#7c3aed" id="statApps">0 / 3</div></div>
+      <div class="stat-card"><div class="stat-label">MOBILITY</div><div class="stat-val" style="color:#1a7a4a">DAILY</div></div>
+    </div>
+    <div class="date-row">
+      <button class="btn-ghost" id="setDateBtn" onclick="showDateEdit()">✎ SET START DATE</button>
+      <span id="dateEditArea" style="display:none">
+        <input type="date" id="dateInput">
+        <button class="btn-accent" onclick="saveStartDate()" style="margin-left:8px">SAVE</button>
+        <button class="btn-ghost" onclick="hideDateEdit()" style="margin-left:6px">CANCEL</button>
+      </span>
+    </div>
+  </div>
+</div>
+
+<div id="rules-strip">
+  <div class="rules-inner">
+    <div class="rules-title">75 HARD DAILY RULES — MISS ONE = RESTART DAY 1</div>
+    <div class="rules-grid">
+      <div class="rule-card"><span class="rule-icon">💪</span><div><div class="rule-name">45 min workout</div><div class="rule-sub">Any modality — gym, home, class</div></div></div>
+      <div class="rule-card"><span class="rule-icon">🚶</span><div><div class="rule-name">45 min walk</div><div class="rule-sub">Separate from workout</div></div></div>
+      <div class="rule-card"><span class="rule-icon">📖</span><div><div class="rule-name">Read 10 pages</div><div class="rule-sub">Non-fiction / self-development</div></div></div>
+      <div class="rule-card"><span class="rule-icon">💧</span><div><div class="rule-name">1 gallon of water</div><div class="rule-sub">No exceptions</div></div></div>
+      <div class="rule-card"><span class="rule-icon">🍽️</span><div><div class="rule-name">1,500+ calories</div><div class="rule-sub">Minimum — no alcohol, no cheat meals</div></div></div>
+      <div class="rule-card"><span class="rule-icon">💼</span><div><div class="rule-name">3 job applications</div><div class="rule-sub">Track on spreadsheet daily</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="main">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('checklist',this)">TODAY</button>
+    <button class="tab-btn" onclick="switchTab('jobs',this)">JOB APPS</button>
+    <button class="tab-btn" onclick="switchTab('schedule',this)">SCHEDULE</button>
+    <button class="tab-btn" onclick="switchTab('nutrition',this)">NUTRITION</button>
+    <button class="tab-btn" onclick="switchTab('mobility',this)">MOBILITY</button>
+  </div>
+
+  <!-- TODAY TAB -->
+  <div class="tab-pane active fade-in" id="tab-checklist">
+    <div id="completeBanner" style="display:none" class="complete-banner">
+      <div class="complete-num">75</div>
+      <div class="complete-label">🔥 PROGRAM COMPLETE — YOU ARE DIFFERENT NOW</div>
+    </div>
+    <div class="day-progress-bar">
+      <div class="day-prog-label">TODAY'S PROGRESS</div>
+      <div class="day-prog-track"><div class="day-prog-fill" id="todayProgFill" style="width:0%"></div></div>
+      <div class="day-prog-count" id="todayProgCount">0 / 0</div>
+    </div>
+    <div style="font-size:9px;color:var(--accent);letter-spacing:3px;font-weight:700;margin-bottom:10px">DAY <span id="checkDayNum">1</span> CHECKLIST</div>
+    <div id="checklistItems"></div>
+    <button class="reset-btn" onclick="resetChecklist('today')">⟳ RESET TODAY</button>
+  </div>
+
+  <!-- JOB APPS TAB -->
+  <div class="tab-pane" id="tab-jobs">
+    <div class="total-stats">
+      <div class="total-stat"><div class="total-stat-label">TODAY</div><div class="total-stat-val" id="jobsToday" style="color:var(--accent)">0</div></div>
+      <div class="total-stat"><div class="total-stat-label">THIS WEEK</div><div class="total-stat-val" id="jobsWeek" style="color:var(--teal)">0</div></div>
+      <div class="total-stat"><div class="total-stat-label">TOTAL</div><div class="total-stat-val" id="jobsTotal" style="color:var(--text2)">0</div></div>
+      <div class="total-stat"><div class="total-stat-label">INTERVIEWS</div><div class="total-stat-val" id="jobsInterviews" style="color:var(--green)">0</div></div>
+    </div>
+    <div class="jobs-today-count">
+      <div>
+        <div class="jobs-count-num" id="jobsTodayBig">0</div>
+        <div class="jobs-count-label">APPS TODAY · TARGET: 3</div>
+      </div>
+      <div class="jobs-count-bar-wrap">
+        <div class="jobs-count-bar" id="jobsTodayBar" style="width:0%"></div>
+      </div>
+    </div>
+    <div class="job-input-row">
+      <input class="job-input" id="jobCompany" placeholder="Company name" type="text">
+      <input class="job-input" id="jobRole" placeholder="Role / position" type="text">
+      <button class="btn-add" onclick="addJob()">+ ADD</button>
+    </div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden">
+      <table class="app-table">
+        <thead>
+          <tr>
+            <th>DATE</th>
+            <th>COMPANY</th>
+            <th>ROLE</th>
+            <th>STATUS</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="jobsTableBody">
+          <tr><td colspan="5" class="empty-jobs">No applications logged yet. Add your first one above.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:12px;font-size:11px;color:var(--muted2);font-family:'Barlow',sans-serif">
+      Tap the status badge to cycle through: Applied → Interview → Offer → Rejected
+    </div>
+  </div>
+
+  <!-- SCHEDULE TAB -->
+  <div class="tab-pane" id="tab-schedule">
+    <div id="scheduleContent"></div>
+    <div class="section-check-title">SCHEDULE CHECKLIST — DAY <span class="checkDayDisplay"></span></div>
+    <div id="scheduleChecklist"></div>
+    <button class="reset-btn" onclick="resetChecklist('schedule')">⟳ RESET</button>
+  </div>
+
+  <!-- NUTRITION TAB -->
+  <div class="tab-pane" id="tab-nutrition">
+    <div class="macro-grid">
+      <div class="macro-card"><div class="macro-label">CALORIES</div><div class="macro-val" style="color:#b07800">≥1,500</div></div>
+      <div class="macro-card"><div class="macro-label">PROTEIN</div><div class="macro-val" style="color:#1a7a4a">100g+</div></div>
+      <div class="macro-card"><div class="macro-label">MEALS</div><div class="macro-val" style="color:#7c3aed">2–3</div></div>
+      <div class="macro-card"><div class="macro-label">FAST</div><div class="macro-val" style="color:#0d8f7a">NO RULES</div></div>
+    </div>
+    <div id="mealCards"></div>
+    <div class="section-check-title">NUTRITION CHECKLIST — DAY <span class="checkDayDisplay"></span></div>
+    <div id="nutritionChecklist"></div>
+    <button class="reset-btn" onclick="resetChecklist('nutrition')">⟳ RESET</button>
+  </div>
+
+  <!-- MOBILITY TAB -->
+  <div class="tab-pane" id="tab-mobility">
+    <div style="font-size:11px;color:var(--muted);font-family:'Barlow',sans-serif;margin-bottom:18px;line-height:1.6">
+      Complete the full routine every day — both core and hip/lower body sections. Takes ~20 minutes. Do it after your workout while your body is warm.
+    </div>
+    <div class="mob-section">
+      <div class="mob-section-title" style="color:#b07800">◆ CORE — DAILY</div>
+      <div id="coreRows"></div>
+    </div>
+    <div class="mob-section">
+      <div class="mob-section-title" style="color:#7c4daa">◆ HIP / LOWER BODY — DAILY</div>
+      <div id="hipRows"></div>
+    </div>
+    <div class="section-check-title">MOBILITY CHECKLIST — DAY <span class="checkDayDisplay"></span></div>
+    <div id="mobilityChecklist"></div>
+    <button class="reset-btn" onclick="resetChecklist('mobility')">⟳ RESET</button>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'malaika_75hard_start';
+const CHECK_KEY   = 'malaika_75hard_checks';
+const JOBS_KEY    = 'malaika_75hard_jobs';
+
+const SCHEDULE = [
+  {time:'Morning', block:'WAKE + HYDRATE', detail:'Start with 16oz water. Eat breakfast when hungry — no fasting requirement.', tag:'routine'},
+  {time:'Morning', block:'WORKOUT — 45 MIN', detail:'Any modality: gym, home workout, fitness class, or YouTube. Full 45 minutes.', tag:'train'},
+  {time:'Morning', block:'WALK — 45 MIN', detail:'Separate from workout. Outside preferred but not required. Podcast or audiobook counts toward 10 pages if non-fiction.', tag:'walk'},
+  {time:'Midday', block:'MEAL 1', detail:'Balanced meal — protein + vegetables + healthy fats. Minimum 500 calories.', tag:'eat'},
+  {time:'Afternoon', block:'READ — 10 PAGES', detail:'75 Hard requirement. Non-fiction / self-development. Can split across the day.', tag:'hard75'},
+  {time:'Afternoon', block:'JOB APPLICATIONS — 3', detail:'Log each application in the Job Apps tab. Company + role + status tracked per day.', tag:'jobs'},
+  {time:'Evening', block:'MEAL 2', detail:'Dinner. Protein-focused. Bring daily total to 1,500+ calories.', tag:'eat'},
+  {time:'Evening', block:'MOBILITY — 20 MIN', detail:'Full routine — Core + Hip/Lower Body. Do after workout while body is warm, or post-dinner.', tag:'train'},
+  {time:'Evening', block:'WIND-DOWN', detail:'Limit screens 30 min before bed. Reflect on the day. Log tomorrow\'s job app targets.', tag:'rest'},
+];
+
+const TAG = {
+  routine:{dot:'#6b6578', bg:'#f7f6f9', border:'#e0dcea'},
+  train:  {dot:'#1a7a4a', bg:'#f0fff8', border:'#b0e8cc'},
+  walk:   {dot:'#0d8f7a', bg:'#f0fffe', border:'#a0ddd8'},
+  eat:    {dot:'#c0392b', bg:'#fff5f4', border:'#f0c8c4'},
+  hard75: {dot:'#7c3aed', bg:'#faf5ff', border:'#d8c0f8'},
+  jobs:   {dot:'#b07800', bg:'#fffbf0', border:'#f0e0a0'},
+  rest:   {dot:'#7c4daa', bg:'#f8f4ff', border:'#d8c8f0'},
+};
+
+const MEALS = [
+  {label:'MEAL 1 — Morning / Midday', cal:'500–700 cal', protein:'35–45g',
+   items:['Greek yogurt parfait: 1 cup full-fat Greek yogurt + granola + berries','Or: 2 eggs + avocado toast + side fruit','Or: Protein smoothie with banana, peanut butter, protein powder, oat milk','Prioritize protein and slow carbs for sustained energy']},
+  {label:'MEAL 2 — Afternoon (optional)', cal:'300–400 cal', protein:'20–30g',
+   items:['Light snack if hungry: hummus + veggies + pita','Or: Cottage cheese + fruit','Or: Handful of nuts + apple','Skip if not hungry — focus on hitting 1,500 at dinner']},
+  {label:'MEAL 3 — Dinner', cal:'600–800 cal', protein:'40–50g',
+   items:['Lean protein: chicken, salmon, tofu, or shrimp (6–8oz)','Roasted vegetables — any you enjoy','Rice, quinoa, or sweet potato (1 cup) for energy','Light sauce or olive oil — avoid heavy cream sauces']},
+];
+
+const CORE = [
+  {name:'Dead Bug', sets:'3×10 / side'},
+  {name:'Hollow Body Hold', sets:'3×20 sec'},
+  {name:'Glute Bridge', sets:'3×15'},
+  {name:'Bird Dog', sets:'3×10 / side'},
+  {name:'Plank', sets:'3×25 sec'},
+];
+const HIP = [
+  {name:'90/90 Hip Switches', sets:'90 sec continuous'},
+  {name:'Pigeon Pose', sets:'60 sec / side'},
+  {name:'Couch Stretch', sets:'60 sec / side'},
+  {name:'Deep Squat Hold', sets:'90 sec'},
+  {name:'Hip Flexor Lunge', sets:'45 sec / side'},
+  {name:'Butterfly Stretch', sets:'90 sec'},
+];
+
+const CHECKS = {
+  today: [
+    {id:'t_workout', icon:'💪', label:'45 min workout complete', sub:'Any modality — gym, home, class'},
+    {id:'t_walk',    icon:'🚶', label:'45 min walk complete', sub:'Separate from workout'},
+    {id:'t_mob',     icon:'🧘', label:'Mobility routine complete', sub:'Core + Hip — full daily routine'},
+    {id:'t_read',    icon:'📖', label:'Read 10 pages', sub:'Non-fiction / self-development'},
+    {id:'t_water',   icon:'💧', label:'1 gallon of water', sub:'Track throughout the day'},
+    {id:'t_meal',    icon:'🍽️', label:'1,500+ calories eaten', sub:'Minimum — nourishment, not restriction'},
+    {id:'t_jobs',    icon:'💼', label:'3 job applications logged', sub:'Added to tracker in Job Apps tab'},
+    {id:'t_diet',    icon:'🚫', label:'Zero alcohol / cheat meals', sub:'No exceptions'},
+  ],
+  schedule: [
+    {id:'s_water',   icon:'💧', label:'Morning water (16oz)', sub:'First thing on wake'},
+    {id:'s_workout', icon:'💪', label:'45 min workout', sub:'Any modality'},
+    {id:'s_walk',    icon:'🚶', label:'45 min walk', sub:'Separate block'},
+    {id:'s_meal1',   icon:'🍽️', label:'Meal 1 eaten', sub:'Protein + carbs for energy'},
+    {id:'s_read',    icon:'📖', label:'10 pages read', sub:'Non-fiction'},
+    {id:'s_apps',    icon:'💼', label:'3 job apps submitted', sub:'Logged in tracker'},
+    {id:'s_dinner',  icon:'🥗', label:'Dinner eaten (Meal 2/3)', sub:'Hit 1,500 cal minimum'},
+    {id:'s_mob',     icon:'🧘', label:'Mobility done', sub:'Full core + hip routine'},
+  ],
+  nutrition: [
+    {id:'n_1500',    icon:'🔢', label:'1,500+ calories reached', sub:'Minimum — do not under-eat'},
+    {id:'n_100p',    icon:'💪', label:'100g+ protein', sub:'Across all meals'},
+    {id:'n_water',   icon:'💧', label:'1 gallon water', sub:'No exceptions'},
+    {id:'n_clean',   icon:'🚫', label:'No alcohol / cheat meals', sub:'Whole foods focus'},
+    {id:'n_veg',     icon:'🥦', label:'Vegetables at least 2 meals', sub:'Color on your plate'},
+  ],
+  mobility: [
+    {id:'m_core',    icon:'🔶', label:'Core section complete', sub:'All 5 exercises'},
+    {id:'m_hip',     icon:'🔷', label:'Hip / lower body section complete', sub:'All 6 exercises'},
+    {id:'m_breath',  icon:'🌬️', label:'Controlled breathing throughout', sub:'Slow, intentional movement'},
+  ],
+};
+
+// --- JOBS ---
+function getJobs() {
+  try { return JSON.parse(localStorage.getItem(JOBS_KEY)) || []; } catch { return []; }
+}
+function saveJobs(jobs) { localStorage.setItem(JOBS_KEY, JSON.stringify(jobs)); }
+function getTodayStr() {
+  const n = new Date();
+  return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
+}
+function getWeekStart() {
+  const n = new Date(); n.setHours(0,0,0,0);
+  const day = n.getDay(); n.setDate(n.getDate() - day);
+  return n.toISOString().split('T')[0];
+}
+
+const STATUSES = ['Applied','Interview','Offer','Rejected'];
+function cycleStatus(id) {
+  const jobs = getJobs();
+  const j = jobs.find(j => j.id === id);
+  if (!j) return;
+  const idx = STATUSES.indexOf(j.status);
+  j.status = STATUSES[(idx+1) % STATUSES.length];
+  saveJobs(jobs);
+  renderJobs();
+}
+function deleteJob(id) {
+  saveJobs(getJobs().filter(j => j.id !== id));
+  renderJobs();
+  updateJobStats();
+}
+function addJob() {
+  const company = document.getElementById('jobCompany').value.trim();
+  const role = document.getElementById('jobRole').value.trim();
+  if (!company && !role) return;
+  const jobs = getJobs();
+  jobs.unshift({ id: Date.now().toString(), date: getTodayStr(), company: company || '—', role: role || '—', status: 'Applied' });
+  saveJobs(jobs);
+  document.getElementById('jobCompany').value = '';
+  document.getElementById('jobRole').value = '';
+  renderJobs();
+  updateJobStats();
+  // auto-check if 3 today
+  const todayCount = jobs.filter(j => j.date === getTodayStr()).length;
+  if (todayCount >= 3) {
+    const c = getChecks2(); const tk = getTodayKey2();
+    if (!c[tk]) c[tk] = {}; if (!c[tk]['today']) c[tk]['today'] = {};
+    c[tk]['today']['t_jobs'] = true;
+    saveChecks2(c); renderAllChecklists(); updateTodayProgress();
+  }
+}
+function renderJobs() {
+  const jobs = getJobs();
+  const tbody = document.getElementById('jobsTableBody');
+  if (!jobs.length) {
+    tbody.innerHTML = '<tr><td colspan="5" class="empty-jobs">No applications logged yet. Add your first one above.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = jobs.map(j => `
+    <tr>
+      <td style="color:var(--muted2);font-size:11px">${j.date}</td>
+      <td style="font-weight:600;color:var(--text2)">${j.company}</td>
+      <td>${j.role}</td>
+      <td><span class="status-badge status-${j.status}" onclick="cycleStatus('${j.id}')">${j.status}</span></td>
+      <td><button class="del-btn" onclick="deleteJob('${j.id}')">×</button></td>
+    </tr>`).join('');
+}
+function updateJobStats() {
+  const jobs = getJobs(); const today = getTodayStr(); const weekStart = getWeekStart();
+  const todayCount = jobs.filter(j => j.date === today).length;
+  const weekCount  = jobs.filter(j => j.date >= weekStart).length;
+  const interviews = jobs.filter(j => j.status === 'Interview' || j.status === 'Offer').length;
+  document.getElementById('jobsToday').textContent = todayCount;
+  document.getElementById('jobsWeek').textContent = weekCount;
+  document.getElementById('jobsTotal').textContent = jobs.length;
+  document.getElementById('jobsInterviews').textContent = interviews;
+  document.getElementById('jobsTodayBig').textContent = todayCount;
+  document.getElementById('jobsTodayBar').style.width = Math.min(100, Math.round(todayCount/3*100)) + '%';
+  document.getElementById('statApps').textContent = `${todayCount} / 3`;
+}
+
+// --- STORAGE ---
+function getStartDate() {
+  const s = localStorage.getItem(STORAGE_KEY);
+  if (s) return new Date(s);
+  const now = new Date(); now.setHours(0,0,0,0);
+  localStorage.setItem(STORAGE_KEY, now.toISOString());
+  return now;
+}
+function getDayNumber(start) {
+  const now = new Date(); now.setHours(0,0,0,0);
+  return Math.max(1, Math.min(Math.floor((now-start)/86400000)+1, 75));
+}
+function getTodayKey2() {
+  const n = new Date();
+  return `${n.getFullYear()}-${n.getMonth()}-${n.getDate()}`;
+}
+function getChecks2() {
+  try { return JSON.parse(localStorage.getItem(CHECK_KEY)) || {}; } catch { return {}; }
+}
+function saveChecks2(obj) { localStorage.setItem(CHECK_KEY, JSON.stringify(obj)); }
+function isChecked(section, id) {
+  const c = getChecks2(); const tk = getTodayKey2();
+  return !!(c[tk] && c[tk][section] && c[tk][section][id]);
+}
+function toggleCheck(section, id) {
+  const c = getChecks2(); const tk = getTodayKey2();
+  if (!c[tk]) c[tk] = {};
+  if (!c[tk][section]) c[tk][section] = {};
+  c[tk][section][id] = !c[tk][section][id];
+  saveChecks2(c); renderAllChecklists(); updateTodayProgress();
+}
+function resetChecklist(section) {
+  const c = getChecks2(); const tk = getTodayKey2();
+  if (!c[tk]) c[tk] = {};
+  c[tk][section] = {};
+  saveChecks2(c); renderAllChecklists(); updateTodayProgress();
+}
+
+function renderCheckSection(containerId, section, items) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = items.map(item => {
+    const done = isChecked(section, item.id);
+    return `<div class="check-row ${done?'done':''}" onclick="toggleCheck('${section}','${item.id}')">
+      <div class="check-box"><span class="check-box-tick">✓</span></div>
+      <span style="font-size:18px;flex-shrink:0">${item.icon}</span>
+      <div><div class="check-text">${item.label}</div><div class="check-sub">${item.sub}</div></div>
+    </div>`;
+  }).join('');
+}
+function renderAllChecklists() {
+  renderCheckSection('checklistItems',    'today',     CHECKS.today);
+  renderCheckSection('scheduleChecklist', 'schedule',  CHECKS.schedule);
+  renderCheckSection('nutritionChecklist','nutrition', CHECKS.nutrition);
+  renderCheckSection('mobilityChecklist', 'mobility',  CHECKS.mobility);
+}
+function updateTodayProgress() {
+  const total = CHECKS.today.length;
+  const done  = CHECKS.today.filter(i => isChecked('today', i.id)).length;
+  const pct   = total > 0 ? Math.round((done/total)*100) : 0;
+  document.getElementById('todayProgFill').style.width = pct+'%';
+  document.getElementById('todayProgCount').textContent = `${done} / ${total}`;
+}
+
+function renderHeader(dayNum) {
+  const pct = Math.round((dayNum/75)*100); const daysLeft = 75-dayNum;
+  const start = getStartDate(); const circ = 2*Math.PI*37;
+  document.getElementById('dayNum').textContent = dayNum;
+  document.getElementById('daysLeft').textContent = daysLeft > 0 ? `${daysLeft} DAYS REMAINING` : '🔥 COMPLETE';
+  document.getElementById('startedLabel').textContent = `STARTED ${start.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}).toUpperCase()}`;
+  document.getElementById('ringPct').textContent = pct+'%';
+  document.getElementById('progBar').style.width = pct+'%';
+  document.getElementById('ringFill').setAttribute('stroke-dashoffset', circ*(1-pct/100));
+  document.getElementById('checkDayNum').textContent = dayNum;
+  document.querySelectorAll('.checkDayDisplay').forEach(el => el.textContent = dayNum);
+  if (daysLeft <= 0) document.getElementById('completeBanner').style.display = 'block';
+}
+function renderSchedule() {
+  document.getElementById('scheduleContent').innerHTML = SCHEDULE.map(row => {
+    const t = TAG[row.tag];
+    return `<div class="sched-row" style="background:${t.bg};border-color:${t.border}">
+      <div class="sched-time">${row.time}</div>
+      <div class="sched-block-wrap"><div class="dot" style="background:${t.dot}"></div><div class="sched-block">${row.block}</div></div>
+      <div class="sched-detail">${row.detail}</div>
+    </div>`;
+  }).join('');
+}
+function renderNutrition() {
+  document.getElementById('mealCards').innerHTML = MEALS.map(m=>`
+    <div class="meal-card">
+      <div class="meal-header">
+        <div class="meal-title">${m.label}</div>
+        <div class="meal-macros"><span style="color:#b07800">${m.cal}</span><span style="color:#1a7a4a;margin-left:10px">${m.protein} protein</span></div>
+      </div>
+      ${m.items.map(i=>`<div class="meal-item"><span class="meal-dash">—</span>${i}</div>`).join('')}
+    </div>`).join('');
+}
+function renderMobility() {
+  document.getElementById('coreRows').innerHTML = CORE.map(e=>
+    `<div class="mob-row"><div class="mob-name">${e.name}</div><div class="mob-sets">${e.sets}</div></div>`).join('');
+  document.getElementById('hipRows').innerHTML = HIP.map(e=>
+    `<div class="mob-row"><div class="mob-name">${e.name}</div><div class="mob-sets">${e.sets}</div></div>`).join('');
+}
+
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  const pane = document.getElementById('tab-'+name);
+  pane.classList.add('active');
+  pane.classList.remove('fade-in'); void pane.offsetWidth; pane.classList.add('fade-in');
+  btn.classList.add('active');
+}
+function showDateEdit() {
+  document.getElementById('dateEditArea').style.display = 'inline-flex';
+  document.getElementById('setDateBtn').style.display = 'none';
+  const s = getStartDate();
+  document.getElementById('dateInput').value = `${s.getFullYear()}-${String(s.getMonth()+1).padStart(2,'0')}-${String(s.getDate()).padStart(2,'0')}`;
+}
+function hideDateEdit() {
+  document.getElementById('dateEditArea').style.display = 'none';
+  document.getElementById('setDateBtn').style.display = '';
+}
+function saveStartDate() {
+  const val = document.getElementById('dateInput').value;
+  if (!val) return;
+  localStorage.setItem(STORAGE_KEY, new Date(val+'T00:00:00').toISOString());
+  hideDateEdit(); init();
+}
+
+function init() {
+  const start = getStartDate();
+  const dayNum = getDayNumber(start);
+  renderHeader(dayNum);
+  renderSchedule();
+  renderNutrition();
+  renderMobility();
+  renderAllChecklists();
+  updateTodayProgress();
+  renderJobs();
+  updateJobStats();
+}
+
+init();
+</script>
+</body>
+</html>
